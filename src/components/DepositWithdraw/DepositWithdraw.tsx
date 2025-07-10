@@ -6,7 +6,7 @@ const DepositWithdraw = () => {
         <span className={styles.title}>Deposit/Withdraw</span>
         <div className={styles.buttonContainer}>
           <input className={styles.amount} type="text" placeholder="Amount" />
-          <button className={styles.button}>Deposit</button>
+          <button className={styles.buttonDeposit}>Deposit</button>
           <button className={styles.button}>Withdraw</button>
         </div>
       </div>

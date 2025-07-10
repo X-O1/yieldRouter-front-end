@@ -1,4 +1,4 @@
-/* DepositWithdraw.module.css */
+/* RouterControl.module.css */
 .container {
   display: flex;
   flex-direction: column;
@@ -18,46 +18,12 @@
   justify-content: space-between;
 }
 
-.amount {
-  font-size: 24px;
-  font-weight: 100;
-  margin: 0;
-  height: 44px;
-  width: 45%;
-  background-color: #d6d1b5;
-  border: 3.5px solid #1f3c26;
-  color: #1f3c26;
-  padding: 0 0 0 10px;
-}
-
-.amount::placeholder {
-  color: #1f3c26;
-  padding: 5px;
-}
-
-.amount:focus {
-  outline: none;
-}
-
-.buttonDeposit {
+.buttonActivate {
   border-radius: 0;
   background-color: #1f3c26;
   border: 3.5px solid #1f3c26;
   color: #d6d1b5;
-  width: 25%;
-  font-size: 25px;
-  padding: 0;
-  height: 50px;
-  box-shadow: 0 1px 0 #1f3c26;
-  transition: all 0.1s ease-in-out;
-  cursor: pointer;
-}
-.button {
-  border-radius: 0;
-  background-color: #d6d1b5;
-  border: 3.5px solid #1f3c26;
-  color: #1f3c26;
-  width: 25%;
+  width: 48%;
   font-size: 25px;
   padding: 0;
   height: 50px;
@@ -66,28 +32,41 @@
   cursor: pointer;
 }
 
-.button:hover {
-  background-color: #1f3c26;
-  color: #d6d1b5;
+.buttonDeactivate {
+  border-radius: 0;
+  background-color: #7c1d1d;
   border: 3.5px solid #1f3c26;
+  color: #d6d1b5;
+  width: 48%;
+  font-size: 25px;
+  padding: 0;
+  height: 50px;
+  box-shadow: 0 1px 0 #1f3c26;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
 }
 
-.buttonDeposit:hover,
-.button:hover {
+.buttonActivate:hover {
   background-color: #61a163;
   color: #d6d1b5;
   border: 3.5px solid #1f3c26;
 }
 
+.buttonDeactivate:hover {
+  background-color: red;
+  color: #d6d1b5;
+  border: 3.5px solid #1f3c26;
+}
+
 /* Push effect on click */
-.button:active,
-.buttonDeposit:active {
+.buttonActivate:active,
+.buttonDeactivate:active {
   transform: translateY(2px);
   box-shadow: 0 2px 0 #1f3c26;
   outline: none;
 }
 
-.button:focus,
-.buttonDeposit:focus {
+.buttonActivate:focus,
+.buttonDeactivate:focus {
   outline: none;
 }
