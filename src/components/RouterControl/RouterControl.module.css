@@ -13,6 +13,26 @@
   margin: 0 0 10px 0;
 }
 
+.selectDestination {
+  font-size: 24px;
+  font-weight: 100;
+  margin: 0 0 10px 0;
+  height: 44px;
+  background-color: #d6d1b5;
+  border: 3.5px solid #1f3c26;
+  color: #1f3c26;
+  padding: 0 0 0 10px;
+}
+
+.selectDestination::placeholder {
+  color: #1f3c26;
+  padding: 5px;
+}
+
+.selectDestination:focus {
+  outline: none;
+}
+
 .buttonContainer {
   display: flex;
   justify-content: space-between;

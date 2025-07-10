@@ -5,6 +5,15 @@ const RouterControl = () => {
     <>
       <div className={styles.container}>
         <span className={styles.title}>Router Control</span>
+        <select className={styles.selectDestination}>
+          <option disabled selected>
+            Select address to Activate
+          </option>
+          <option>0x1234...abcd</option>
+          <option>0x5678...def0</option>
+          <option>0x9abc...7890</option>
+        </select>
+
         <div className={styles.buttonContainer}>
           <button className={styles.buttonActivate}>Activate Router</button>
           <button className={styles.buttonDeactivate}>Deactivate Router</button>
