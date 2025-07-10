@@ -9,23 +9,23 @@
 }
 
 .title {
-  font-size: 24px;
+  font-size: 23px;
   font-weight: 600;
 }
 
 .log {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 100;
   margin: 0 0 10px 0;
 }
 
 .addressInput {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 100;
   margin: 0 0 10px 0;
   height: 38px;
   background-color: #d6d1b5;
-  border: 3.5px solid #1f3c26;
+  border: 2.5px solid #1f3c26;
   color: #1f3c26;
   padding: 0 0 0 10px;
 }
@@ -47,11 +47,11 @@
 .button {
   border-radius: 0;
   background-color: #d6d1b5;
-  border: 3.5px solid #1f3c26;
+  border: 2.5px solid #1f3c26;
   color: #1f3c26;
   width: 48%;
-  height: 43px;
-  font-size: 18px;
+  height: 41px;
+  font-size: 16px;
   padding: 0;
   margin: 0;
   box-shadow: 0 1px 0 #1f3c26;

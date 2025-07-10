@@ -8,7 +8,7 @@
 }
 
 .title {
-  font-size: 24px;
+  font-size: 23px;
   font-weight: 600;
   margin: 0 0 10px 0;
 }
@@ -19,13 +19,13 @@
 }
 
 .amount {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 100;
   margin: 0;
   height: 38px;
   width: 45%;
   background-color: #d6d1b5;
-  border: 3.5px solid #1f3c26;
+  border: 2.5px solid #1f3c26;
   color: #1f3c26;
   padding: 0 0 0 10px;
 }
@@ -42,12 +42,12 @@
 .buttonDeposit {
   border-radius: 0;
   background-color: #1f3c26;
-  border: 3.5px solid #1f3c26;
+  border: 2.5px solid #1f3c26;
   color: #d6d1b5;
   width: 25%;
-  font-size: 18px;
+  font-size: 15px;
   padding: 0;
-  height: 43px;
+  height: 41px;
   box-shadow: 0 1px 0 #1f3c26;
   transition: all 0.1s ease-in-out;
   cursor: pointer;
@@ -55,12 +55,12 @@
 .button {
   border-radius: 0;
   background-color: #d6d1b5;
-  border: 3.5px solid #1f3c26;
+  border: 2.5px solid #1f3c26;
   color: #1f3c26;
   width: 25%;
-  font-size: 18px;
+  font-size: 15px;
   padding: 0;
-  height: 43px;
+  height: 40px;
   box-shadow: 0 1px 0 #1f3c26;
   transition: all 0.1s ease-in-out;
   cursor: pointer;
