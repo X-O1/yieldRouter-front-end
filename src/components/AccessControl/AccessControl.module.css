@@ -1,0 +1,77 @@
+/* AccessControl.module.css */
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  border-bottom: 3.5px solid #1f3c26;
+  padding: 18px 0;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.addressInput {
+  font-size: 24px;
+  font-weight: 100;
+  margin: 0 0 10px 0;
+  height: 44px;
+  background-color: #d6d1b5;
+  border: 3.5px solid #1f3c26;
+  color: #1f3c26;
+  padding: 0 0 0 10px;
+}
+
+.addressInput::placeholder {
+  color: #1f3c26;
+  padding: 5px;
+}
+
+.addressInput:focus {
+  outline: none;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.log {
+  font-size: 24px;
+
+  font-weight: 100;
+  margin: 0 0 10px 0;
+}
+
+.button {
+  border-radius: 0;
+  background-color: #d6d1b5;
+  border: 3.5px solid #1f3c26;
+  color: #1f3c26;
+  width: 48%;
+  height: 50px;
+  font-size: 25px;
+  padding: 0;
+  margin: 0;
+  box-shadow: 0 1px 0 #1f3c26;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #1f3c26;
+  color: #d6d1b5;
+  border: 3.5px solid #1f3c26;
+}
+
+/* Push effect */
+.button:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #1f3c26;
+}
+
+.button:focus {
+  outline: none;
+}

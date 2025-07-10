@@ -1,12 +1,8 @@
 /* App.module.css */
 .container {
-  border: solid #1f3c26 1px;
-  width: 90vw;
+  /* border: solid #1f3c26 1px; */
+  width: 87vw;
   height: 90vh;
   max-width: 650px;
-  display: flex;
-  justify-content: center;
-  box-sizing: border-box;
-  padding: 0px;
-  margin: 0px;
+  text-align: left;
 }
