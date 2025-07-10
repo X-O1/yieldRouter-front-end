@@ -4,20 +4,20 @@
   flex-direction: column;
   justify-content: center;
   border-bottom: 3.5px solid #1f3c26;
-  padding: 18px 0;
+  padding: 15px 0;
 }
 
 .title {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 600;
   margin: 0 0 10px 0;
 }
 
 .selectDestination {
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 100;
   margin: 0 0 10px 0;
-  height: 44px;
+  height: 38px;
   background-color: #d6d1b5;
   border: 3.5px solid #1f3c26;
   color: #1f3c26;
@@ -44,9 +44,9 @@
   border: 3.5px solid #1f3c26;
   color: #d6d1b5;
   width: 48%;
-  font-size: 25px;
+  font-size: 18px;
   padding: 0;
-  height: 50px;
+  height: 43px;
   box-shadow: 0 1px 0 #1f3c26;
   transition: all 0.1s ease-in-out;
   cursor: pointer;
@@ -58,9 +58,9 @@
   border: 3.5px solid #1f3c26;
   color: #d6d1b5;
   width: 48%;
-  font-size: 25px;
+  font-size: 18px;
   padding: 0;
-  height: 50px;
+  height: 43px;
   box-shadow: 0 1px 0 #1f3c26;
   transition: all 0.1s ease-in-out;
   cursor: pointer;
