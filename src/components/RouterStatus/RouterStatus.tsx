@@ -34,9 +34,9 @@ const RouterStatus = () => {
         </div>
 
         <div className={styles.buttonContainer}>
-          <button className={styles.buttonConnect}>Connect</button>
-          {/* <button className={styles.buttonCreateRouter}>Create Router</button> */}
+          <button className={styles.buttonCreateRouter}>Create Router</button>
           <button className={styles.buttonSwitchRouter}>Switch Router</button>
+          {/* <button className={styles.buttonConnect}>Connect</button> */}
         </div>
       </div>
     </>

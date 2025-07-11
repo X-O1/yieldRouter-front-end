@@ -58,7 +58,7 @@
   border: 1.25px solid #1f3c26;
   border-radius: 3px;
   color: #d6d1b5;
-  height: 27px;
+  height: 25px;
   width: 100%;
   font-size: 13px;
   font-weight: 700;
@@ -70,8 +70,8 @@
 }
 
 .buttonConnect:hover {
-  background-color: #1f3c26;
-  color: #d6d1b5;
+  background-color: #61a163;
+  color: #1f3c26;
   border: 1.5px solid #1f3c26;
 }
 
