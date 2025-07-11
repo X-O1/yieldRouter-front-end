@@ -7,7 +7,7 @@ const RouterControl = () => {
         <span className={styles.title}>Router Control</span>
         <select className={styles.selectDestination}>
           <option disabled selected>
-            Select address to Activate
+            Select Yield Destination
           </option>
           <option>0x1234...abcd</option>
           <option>0x5678...def0</option>

@@ -5,6 +5,8 @@ const Header = () => {
       <div className={styles.container}>
         <span className={styles.title}>yieldwield</span>
         <span className={styles.subTitle}>secure yield routing</span>
+        {/* <button className={styles.buttonConnect}>Connect</button> */}
+        <button className={styles.buttonCreateRouter}>Create Router</button>
       </div>
     </>
   );

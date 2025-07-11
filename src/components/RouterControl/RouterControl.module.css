@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-bottom: 3.5px solid #1f3c26;
+  border-bottom: 1px solid #1f3c26;
   padding: 10px 0;
 }
 
@@ -20,6 +20,8 @@
   height: 35px;
   background-color: #d6d1b5;
   border: 2.5px solid #1f3c26;
+  border-radius: 3px;
+
   color: #1f3c26;
   padding: 0 0 0 10px;
 }
@@ -41,13 +43,15 @@
 .buttonActivate {
   border-radius: 0;
   background-color: #1f3c26;
-  border: 2.5px solid #1f3c26;
+  border: 2.25px solid #1f3c26;
+  border-radius: 3px;
   color: #d6d1b5;
   width: 48%;
   font-size: 15px;
   padding: 0;
   height: 43px;
   box-shadow: 0 1px 0 #1f3c26;
+
   transition: all 0.1s ease-in-out;
   cursor: pointer;
 }
@@ -55,7 +59,9 @@
 .buttonDeactivate {
   border-radius: 0;
   background-color: #7c1d1d;
-  border: 2.5px solid #1f3c26;
+  border: 2.25px solid #1f3c26;
+  border-radius: 3px;
+
   color: #d6d1b5;
   width: 48%;
   font-size: 15px;
@@ -68,14 +74,14 @@
 
 .buttonActivate:hover {
   background-color: #61a163;
-  color: #d6d1b5;
-  border: 3.5px solid #1f3c26;
+  color: #1f3c26;
+  border: 2px solid #1f3c26;
 }
 
 .buttonDeactivate:hover {
-  background-color: red;
+  background-color: #cc3838;
   color: #d6d1b5;
-  border: 3.5px solid #1f3c26;
+  border: 2px solid #1f3c26;
 }
 
 /* Push effect on click */

@@ -4,8 +4,7 @@
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  border-bottom: 3.5px solid #1f3c26;
-  padding-bottom: 18px;
+  border-bottom: 1px solid #1f3c26;
 }
 
 .title {
@@ -17,4 +16,71 @@
 .subTitle {
   font-size: 18px;
   font-weight: 100;
+  margin-bottom: 25px;
+}
+
+.buttonCreateRouter {
+  border-radius: 0;
+  background-color: #61a163;
+  color: #1f3c26;
+  border: 1.25px solid #1f3c26;
+  border-radius: 3px;
+  height: 27px;
+  width: 100%;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 0;
+  margin: 0 auto 5px auto;
+  box-shadow: 0 1.5px 0 #1f3c26;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+}
+
+.buttonCreateRouter:hover {
+  background-color: #61a163;
+  color: #1f3c26;
+  border: 1.5px solid #1f3c26;
+}
+
+/* Push effect */
+.buttonCreateRouter:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #1f3c26;
+}
+
+.buttonCreateRouter:focus {
+  outline: none;
+}
+
+.buttonConnect {
+  border-radius: 0;
+  background-color: #1f3c26;
+  border: 1.25px solid #1f3c26;
+  border-radius: 3px;
+  color: #d6d1b5;
+  height: 27px;
+  width: 100%;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 0;
+  margin: 0 auto 5px auto;
+  box-shadow: 0 1.5px 0 #1f3c26;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+}
+
+.buttonConnect:hover {
+  background-color: #1f3c26;
+  color: #d6d1b5;
+  border: 1.5px solid #1f3c26;
+}
+
+/* Push effect */
+.buttonConnect:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #1f3c26;
+}
+
+.buttonConnect:focus {
+  outline: none;
 }

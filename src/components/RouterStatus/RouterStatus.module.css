@@ -1,11 +1,18 @@
 /* RouterStatus.module.css */
 .container {
   display: flex;
+  justify-content: center;
+  justify-content: space-between;
+  text-align: left;
+  border-bottom: 1px solid #1f3c26;
+  padding: 10px 0;
+}
+.statusContainer {
+  display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: left;
-  border-bottom: 3.5px solid #1f3c26;
-  padding: 10px 0;
+  margin: 0 0 5px 0;
 }
 
 .title {
@@ -37,25 +44,108 @@
 .selectDestination:focus {
   outline: none;
 }
+.buttonContainer {
+  text-align: right;
+  width: 23%;
+}
 
-/* .statusContainer {
-  background-color: #d6d1b5;
-  border: 3px solid #1f3c26;
-  padding: 10px;
-  font-family: "IBM Plex Mono", monospace;
-  color: #1f3c26;
+.buttonConnect {
+  border-radius: 0;
+  background-color: #1f3c26;
+  border: 1.25px solid #1f3c26;
+  border-radius: 3px;
+  color: #d6d1b5;
+  height: 27px;
   width: 100%;
-  max-width: 400px;
-}
-
-.statusHeader {
-  font-size: 18px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 0;
+  margin: 0 0 3px 0;
+  box-shadow: 0 1.25 0 #1f3c26;
+  transition: all 0.1s ease-in-out;
   cursor: pointer;
-  outline: none;
-  list-style: none;
-  font-weight: bold;
 }
 
-.statusHeader::-webkit-details-marker {
-  display: none;
-} */
+.buttonSwitchRouter {
+  border-radius: 0;
+  background-color: #d6d1b5;
+  color: #1f3c26;
+  height: 27px;
+  width: 100%;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 0;
+  margin: 0 0 3px 0;
+  border: 1.25px solid #1f3c26;
+  border-radius: 3px;
+  box-shadow: 0 1.25px 0 #1f3c26;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+}
+
+.buttonConnect:hover {
+  background-color: #61a163;
+  color: #1f3c26;
+  border: 1.5px solid #1f3c26;
+}
+
+.buttonSwitchRouter:hover {
+  background-color: #61a163;
+  color: #1f3c26;
+  border: 1.5px solid #1f3c26;
+}
+
+/* Push effect */
+.buttonSwitchRouter:active,
+.buttonConnect:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #1f3c26;
+}
+
+.buttonSwitchRouter:focus,
+.buttonConnect:focus {
+  outline: none;
+}
+
+.collapsible summary {
+  cursor: pointer;
+  margin-top: 0.5rem;
+  font-size: 15px;
+}
+
+.collapsible[open] summary {
+  margin-bottom: 0.5rem;
+}
+
+.buttonCreateRouter {
+  border-radius: 0;
+  background-color: #61a163;
+  color: #1f3c26;
+  border: 1.25px solid #1f3c26;
+  border-radius: 3px;
+  height: 27px;
+  width: 100%;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 0;
+  margin: 0 auto 5px auto;
+  box-shadow: 0 1.5px 0 #1f3c26;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+}
+
+.buttonCreateRouter:hover {
+  background-color: #61a163;
+  color: #1f3c26;
+  border: 1.5px solid #1f3c26;
+}
+
+/* Push effect */
+.buttonCreateRouter:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #1f3c26;
+}
+
+.buttonCreateRouter:focus {
+  outline: none;
+}

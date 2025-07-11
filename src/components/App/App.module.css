@@ -2,7 +2,8 @@
 .container {
   /* border: solid #1f3c26 1px; */
   width: 87vw;
-  height: 90vh;
+  height: 87vh;
   max-width: 475px;
   text-align: left;
+  padding: 20px 0 0 0;
 }
