@@ -5,19 +5,16 @@ const Header = () => {
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [hasWallet, setHasWallet] = useState<boolean>(false);
 
-  // Check for wallet and set initial state
   useEffect(() => {
     if (typeof window !== "undefined" && typeof window.ethereum !== "undefined") {
       setHasWallet(true);
 
-      // Check if already connected
       window.ethereum.request({ method: "eth_accounts" }).then((accounts: string[]) => {
         if (accounts.length > 0) {
           setWalletAddress(accounts[0]);
         }
       });
 
-      // Listen for account changes
       const handleAccountsChanged = (accounts: string[]) => {
         if (accounts.length > 0) {
           setWalletAddress(accounts[0]);

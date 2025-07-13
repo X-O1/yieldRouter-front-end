@@ -1,0 +1,16 @@
+{
+  "tokens": [
+    {
+      "symbol": "aUSDC",
+      "name": "Aave USDC",
+      "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+      "decimals": 6
+    },
+    {
+      "symbol": "aUSDT",
+      "name": "Aave USDT",
+      "address": "0xAUSDT_TOKEN_ADDRESS",
+      "decimals": 6
+    }
+  ]
+}

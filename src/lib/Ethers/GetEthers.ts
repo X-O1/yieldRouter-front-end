@@ -1,4 +1,4 @@
-import { BrowserProvider } from "ethers";
+import { BrowserProvider, JsonRpcSigner } from "ethers";
 
 declare global {
   interface Window {
@@ -6,19 +6,18 @@ declare global {
   }
 }
 
-const connectWallet = async (): Promise<string[]> => {
-  if (!window.ethereum) throw new Error("No wallet found");
-  return await window.ethereum.request({ method: "eth_requestAccounts" });
+const evmWalletExist = (): boolean => {
+  const exist = typeof window !== "undefined" && typeof window.ethereum !== "undefined";
+  return exist;
 };
-
 const getProvider = (): BrowserProvider => {
   if (!window.ethereum) throw new Error("No Ethereum provider");
   return new BrowserProvider(window.ethereum);
 };
 
-const getSigner = async () => {
+const getSigner = async (): Promise<JsonRpcSigner> => {
   const provider = getProvider();
-  return await provider.getSigner();
+  return await provider.getSigner(); // this is correct
 };
 
 const getNetwork = async () => {
@@ -26,4 +25,4 @@ const getNetwork = async () => {
   return await provider.getNetwork();
 };
 
-export { connectWallet, getProvider, getSigner, getNetwork };
+export { evmWalletExist, getProvider, getSigner, getNetwork };

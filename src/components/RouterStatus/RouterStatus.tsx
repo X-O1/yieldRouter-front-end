@@ -1,4 +1,6 @@
 import styles from "./RouterStatus.module.css";
+import ManageRouters from "../ManageeRouters/ManageRouters";
+
 const RouterStatus = () => {
   return (
     <>
@@ -32,12 +34,7 @@ const RouterStatus = () => {
             </div>
           </details>
         </div>
-
-        <div className={styles.buttonContainer}>
-          <button className={styles.buttonCreateRouter}>Create Router</button>
-          <button className={styles.buttonSwitchRouter}>Switch Router</button>
-          {/* <button className={styles.buttonConnect}>Connect</button> */}
-        </div>
+        <ManageRouters />
       </div>
     </>
   );

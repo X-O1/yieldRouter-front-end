@@ -1,0 +1,56 @@
+/* ManageRouters.module.css */
+.buttonContainer {
+  text-align: right;
+  width: 23%;
+}
+.buttonCreateRouter {
+  border-radius: 0;
+  background-color: #61a163;
+  color: #1f3c26;
+  border: 1.25px solid #1f3c26;
+  border-radius: 3px;
+  height: 27px;
+  width: 100%;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 0;
+  margin: 0 auto 5px auto;
+  box-shadow: 0 1.5px 0 #1f3c26;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+}
+
+.buttonSwitchRouter {
+  border-radius: 0;
+  background-color: #d6d1b5;
+  color: #1f3c26;
+  height: 27px;
+  width: 100%;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 0;
+  margin: 0 0 3px 0;
+  border: 1.25px solid #1f3c26;
+  border-radius: 3px;
+  box-shadow: 0 1.25px 0 #1f3c26;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+}
+
+.buttonCreateRouter:hover,
+.buttonSwitchRouter:hover {
+  background-color: #61a163;
+  color: #1f3c26;
+  border: 1.5px solid #1f3c26;
+}
+
+/* Push effect */
+.buttonCreateRouter:active,
+.buttonSwitchRouter:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #1f3c26;
+}
+.buttonCreateRouter:focus,
+.buttonSwitchRouter:focus {
+  outline: none;
+}

@@ -93,6 +93,36 @@ const ROUTER_FACTORY_CONTROLLER_CONTRACT = {
     },
     {
       type: "function",
+      name: "getFactories",
+      inputs: [],
+      outputs: [
+        {
+          name: "",
+          type: "tuple[]",
+          internalType: "struct RouterFactoryController.FactoryDetails[]",
+          components: [
+            {
+              name: "factoryAddress",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "yieldBarringTokenAddress",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "principalTokenAddress",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+      ],
+      stateMutability: "view",
+    },
+    {
+      type: "function",
       name: "getFactoryControllerAddress",
       inputs: [],
       outputs: [
