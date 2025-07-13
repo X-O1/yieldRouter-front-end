@@ -1,0 +1,190 @@
+/* ManageRouterState.module.css */
+.buttonContainer {
+  text-align: right;
+  width: 23%;
+}
+.buttonNewRouter {
+  border-radius: 0;
+  background-color: #61a163;
+  color: #1f3c26;
+  border: 1.25px solid #1f3c26;
+  border-radius: 3px;
+  height: 27px;
+  width: 100%;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 0;
+  margin: 0 auto 5px auto;
+  box-shadow: 0 1.5px 0 #1f3c26;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+}
+
+.buttonSwitchRouter {
+  border-radius: 0;
+  background-color: #d6d1b5;
+  color: #1f3c26;
+  height: 27px;
+  width: 100%;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 0;
+  margin: 0 0 3px 0;
+  border: 1.25px solid #1f3c26;
+  border-radius: 3px;
+  box-shadow: 0 1.25px 0 #1f3c26;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+}
+
+.buttonCreateRouter {
+  border-radius: 0;
+  background: #005a00;
+  color: white;
+  width: 100%;
+  font-size: 12px;
+  font-weight: 700;
+  margin: 0 0 3px 0;
+  border: 1.25px solid #1f3c26;
+  box-shadow: 0 1.25px 0 #1f3c26;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+
+  padding: 0.5rem 1rem;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.buttonNewRouter,
+.buttonSwitchRouter {
+  display: inline-block;
+  text-align: center;
+  line-height: 27px;
+  user-select: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.buttonNewRouter:hover {
+  filter: brightness(95%);
+}
+
+.buttonNewRouter:active {
+  transform: translateY(1px);
+}
+
+.buttonCreateRouter:hover,
+.buttonSwitchRouter:hover {
+  background-color: #61a163;
+  color: #1f3c26;
+  border: 1.5px solid #1f3c26;
+}
+
+/* Push effect */
+.buttonCreateRouter:active,
+.buttonSwitchRouter:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #1f3c26;
+}
+.buttonCreateRouter:focus,
+.buttonSwitchRouter:focus {
+  outline: none;
+}
+
+.modalToggle:checked ~ .modalOverlay {
+  display: flex;
+}
+
+/* Modal base */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 25, 10, 0.85);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+  font-family: monospace;
+}
+
+/* Modal content */
+.modalContent {
+  background: #fdfadd;
+  color: #002d00;
+  padding: 2rem;
+  border: 2px solid #002d00;
+  border-radius: 5px;
+  width: 90%;
+  max-width: 400px;
+  text-align: left;
+}
+
+.modalContent input,
+.modalContent select {
+  width: 100%;
+  padding: 0.5rem;
+  font-family: monospace;
+  border: 1px solid #002d00;
+  background: #f5f2c8;
+  color: #002d00;
+}
+
+.modalToggle2:checked ~ .modalOverlay2 {
+  display: flex;
+}
+
+/* Modal base */
+.modalOverlay2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 25, 10, 0.85);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+  font-family: monospace;
+}
+
+/* Modal content */
+.modalContent2 {
+  background: #fdfadd;
+  color: #002d00;
+  padding: 2rem;
+  border: 2px solid #002d00;
+  border-radius: 5px;
+  width: 90%;
+  max-width: 400px;
+  text-align: left;
+}
+
+.modalContent2 input,
+.modalContent2 select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 15px;
+  font-family: monospace;
+  border: 1px solid #002d00;
+  background: #f5f2c8;
+  color: #002d00;
+}
+
+.closeBtn {
+  display: inline-block;
+  margin-top: 1rem;
+  background: #005a00;
+  color: white;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  border-radius: 4px;
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}

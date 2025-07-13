@@ -1,5 +1,5 @@
 import styles from "./RouterStatus.module.css";
-import ManageRouters from "../ManageeRouters/ManageRouters";
+import ManageRouterState from "../ManageRouterState/ManageRouterState";
 
 const RouterStatus = () => {
   return (
@@ -34,7 +34,7 @@ const RouterStatus = () => {
             </div>
           </details>
         </div>
-        <ManageRouters />
+        <ManageRouterState />
       </div>
     </>
   );

@@ -1,5 +1,4 @@
 const ROUTER_CONTRACT = {
-  address: "0x8b6c9c970ae2aad83c98c2b53cae934640c05512",
   abi: [
     {
       type: "function",
