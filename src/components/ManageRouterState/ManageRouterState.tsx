@@ -81,22 +81,29 @@ const ManageRouters = () => {
       const newRouterAddress: string = accountRouters[newRouterIndex].routerAddress;
       const newRouterTokenAddress: string = accountRouters[newRouterIndex].tokenAddress;
       const newRouterNickname: string = accountRouters[newRouterIndex].routerNickname;
+      const allUserRouters: UserRouterDetails[] = await routerFactory.getAccountRouters(userAddress);
 
       setSelectedRouter(newRouterAddress);
       console.log("New router deployed at:", newRouterAddress);
+      setCurrencyAddress(newRouterTokenAddress);
       setRouterNickname(newRouterNickname);
 
-      setActiveUserRouters((prev) => [
-        ...prev,
-        {
-          userAddress: userAddress,
-          routerAddress: newRouterAddress,
-          tokenAddress: newRouterTokenAddress,
-          routerNickname: newRouterNickname,
-        },
-      ]);
+      setActiveUserRouters(allUserRouters);
     } catch (error) {}
   };
+
+  useEffect(() => {
+    const getUserRouters = async (): Promise<void> => {
+      const provider = getProvider();
+      const controller = new Contract(ROUTER_FACTORY_CONTROLLER_CONTRACT.address, ROUTER_FACTORY_CONTROLLER_CONTRACT.abi, provider);
+      const activeFactories: FactoryDetails[] = await controller.getFactories();
+
+      for (const factory of activeFactories) {
+        await _setLocalStorageState(factory.factoryAddress);
+      }
+    };
+    getUserRouters();
+  }, []);
 
   // to display all acitve user's routers
   // const fetchUserRouters = async (): Promise<void> => {
