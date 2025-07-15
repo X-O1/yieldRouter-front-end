@@ -35,6 +35,7 @@
   box-shadow: 0 1.25px 0 #1f3c26;
   transition: all 0.1s ease-in-out;
   cursor: pointer;
+  display: flex;
 }
 
 .buttonCreateRouter {

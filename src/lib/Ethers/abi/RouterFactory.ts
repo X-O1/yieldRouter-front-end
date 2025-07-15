@@ -23,12 +23,18 @@ const ROUTER_FACTORY_CONTRACT = {
     {
       type: "function",
       name: "createRouter",
-      inputs: [],
+      inputs: [
+        {
+          name: "_routerNickname",
+          type: "string",
+          internalType: "string",
+        },
+      ],
       outputs: [
         {
           name: "",
           type: "address",
-          internalType: "contract Router",
+          internalType: "address",
         },
       ],
       stateMutability: "nonpayable",
@@ -46,8 +52,25 @@ const ROUTER_FACTORY_CONTRACT = {
       outputs: [
         {
           name: "",
-          type: "address[]",
-          internalType: "address[]",
+          type: "tuple[]",
+          internalType: "struct RouterFactory.RouterDetails[]",
+          components: [
+            {
+              name: "routerAddress",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "tokenAddress",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "routerNickname",
+              type: "string",
+              internalType: "string",
+            },
+          ],
         },
       ],
       stateMutability: "view",
@@ -124,6 +147,19 @@ const ROUTER_FACTORY_CONTRACT = {
       outputs: [
         {
           name: "owner",
+          type: "address",
+          internalType: "address",
+        },
+      ],
+      stateMutability: "view",
+    },
+    {
+      type: "function",
+      name: "getYieldBearingToken",
+      inputs: [],
+      outputs: [
+        {
+          name: "",
           type: "address",
           internalType: "address",
         },
@@ -226,9 +262,19 @@ const ROUTER_FACTORY_CONTRACT = {
       ],
       outputs: [
         {
-          name: "routers",
+          name: "routerAddress",
           type: "address",
           internalType: "address",
+        },
+        {
+          name: "tokenAddress",
+          type: "address",
+          internalType: "address",
+        },
+        {
+          name: "routerNickname",
+          type: "string",
+          internalType: "string",
         },
       ],
       stateMutability: "view",
@@ -327,13 +373,7 @@ const ROUTER_FACTORY_CONTRACT = {
       name: "Router_Created",
       inputs: [
         {
-          name: "router",
-          type: "address",
-          indexed: true,
-          internalType: "address",
-        },
-        {
-          name: "owner",
+          name: "routerAddress",
           type: "address",
           indexed: true,
           internalType: "address",
@@ -341,11 +381,17 @@ const ROUTER_FACTORY_CONTRACT = {
         {
           name: "yieldToken",
           type: "address",
-          indexed: false,
+          indexed: true,
           internalType: "address",
         },
         {
-          name: "principalToken",
+          name: "routerNickname",
+          type: "string",
+          indexed: false,
+          internalType: "string",
+        },
+        {
+          name: "owner",
           type: "address",
           indexed: false,
           internalType: "address",
