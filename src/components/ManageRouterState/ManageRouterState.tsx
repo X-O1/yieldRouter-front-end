@@ -1,5 +1,5 @@
 import styles from "./ManageRouterState.module.css";
-import { Contract, Log, LogDescription } from "ethers";
+import { Contract } from "ethers";
 import { useState, useEffect } from "react";
 import { evmWalletExist, getProvider, getSigner } from "../../lib/Ethers/GetEthers.ts";
 import { ROUTER_FACTORY_CONTROLLER_CONTRACT } from "../../lib/Ethers/abi/RouterFactoryController.ts";
@@ -23,7 +23,6 @@ const ManageRouters = () => {
   const [selectedRouter, setSelectedRouter] = usePersistentState("selected-router", "");
   const [currencyAddress, setCurrencyAddress] = usePersistentState("currency-address", "");
   const [routerNickname, setRouterNickname] = usePersistentState("router-nickname", "");
-  // const [allUserRouters, setUserRouters] = usePersistentState<UserRouterDetails[]>("all-user-routers", []);
   const [ativeUserRouters, setActiveUserRouters] = usePersistentState<UserRouterDetails[]>("active-user-routers", []);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -66,7 +65,6 @@ const ManageRouters = () => {
     try {
       const signer = await getSigner();
       const userAddress = await signer.getAddress();
-
       const routerFactory = new Contract(_selectedFactory, ROUTER_FACTORY_CONTRACT.abi, signer);
 
       const accountRouters: UserRouterDetails[] = await routerFactory.getAccountRouters(userAddress);
@@ -89,7 +87,9 @@ const ManageRouters = () => {
       setRouterNickname(newRouterNickname);
 
       setActiveUserRouters(allUserRouters);
-    } catch (error) {}
+    } catch (error) {
+      console.error("Failed to set local storage state:", error);
+    }
   };
 
   useEffect(() => {
@@ -105,48 +105,6 @@ const ManageRouters = () => {
     getUserRouters();
   }, []);
 
-  // to display all acitve user's routers
-  // const fetchUserRouters = async (): Promise<void> => {
-  //   if (!evmWalletExist()) return;
-
-  //   try {
-  //     const provider = getProvider();
-  //     const signer = await getSigner();
-  //     const userAddress = await signer.getAddress();
-
-  //     const factory = new Contract(selectedFactory, ROUTER_FACTORY_CONTRACT.abi, provider);
-  //     const activeRouterAddresses: string[] = await factory.getAccountRouters(userAddress);
-
-  //     // Get all stored routers
-  //     const storedRouters = useUserRouters.getState().userRouters;
-
-  //     // Match on-chain addresses with local metadata (nickname, ticker)
-  //     const activeUserRouters = activeRouterAddresses.map((address) => {
-  //       const match = storedRouters.find((r) => r.routerAddress === address && r.userAddress === userAddress);
-
-  //       return {
-  //         userAddress,
-  //         routerAddress: address,
-  //         currencyAddress: currencyAddress,
-  //         routerNickname: match?.routerNickname ?? "",
-  //         currencyTicker: match?.currencyTicker ?? "",
-  //       };
-  //     });
-
-  //     setActiveUserRouters(activeUserRouters);
-  //     console.log(activeUserRouters);
-  //   } catch (error) {
-  //     console.error("Failed to fetch user routers:", error);
-  //   }
-  // };
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     await fetchUserRouters();
-  //   };
-
-  //   fetchData();
-  // }, []);
-
   return (
     <>
       <div className={styles.buttonContainer}>
@@ -159,8 +117,8 @@ const ManageRouters = () => {
           className={styles.modalToggle}
           hidden
           onChange={(e) => {
-            if (e.target.checked) {
-              // Modal opened – reset state here
+            setIsModalOpen(e.target.checked);
+            if (!e.target.checked) {
               setCurrencyAddress("");
               setRouterNickname("");
             }
