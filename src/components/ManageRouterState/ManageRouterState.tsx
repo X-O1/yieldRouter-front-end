@@ -194,7 +194,7 @@ const ManageRouters = () => {
               if (matchedRouter) {
                 const nickname = matchedRouter.routerNickname || "";
                 setRouterNickname(nickname);
-                localStorage.setItem("router-nickname", nickname); // 🔥 force RouterStatus to reflect latest nickname
+                setSelectedRouter(matchedRouter.routerAddress);
               }
             }}
           >

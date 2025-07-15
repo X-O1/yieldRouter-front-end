@@ -4,13 +4,17 @@ import { usePersistentState } from "../../store/LocalStorage.ts";
 
 const RouterStatus = () => {
   const [nickname] = usePersistentState("router-nickname", "");
+  const [router] = usePersistentState("selected-router", "");
 
   return (
     <>
       <div className={styles.container}>
         <div className={styles.statusContainer}>
           <span className={styles.title}>Router Status</span>
-          <span className={styles.subTitle}>Nickname: {nickname}</span>
+          <span className={styles.subTitle}>
+            Router: {nickname} ({router.slice(0, 6)}...{router.slice(-4)})
+          </span>
+
           <span className={styles.subTitle}>Active: true</span>
           <span className={styles.subTitle}>Destination: 0xabc...123</span>
           <span className={styles.subTitle}>Balance: 1000 aUSDC</span>
@@ -31,7 +35,7 @@ const RouterStatus = () => {
 
             <div className={styles.statusContainer}>
               <span className={styles.title}>Router Details</span>
-              <span className={styles.subTitle}>Router Address: 0xabc...123</span>
+
               <span className={styles.subTitle}>Currency: aUSDC(0xabc...123)</span>
               <span className={styles.subTitle}>Automation Cost: 0.5% (auto-deducted)</span>
             </div>
