@@ -3,8 +3,8 @@ import ManageRouterState from "../ManageRouterState/ManageRouterState";
 import { usePersistentState } from "../../store/LocalStorage.ts";
 
 const RouterStatus = () => {
-  const [nickname] = usePersistentState("router-nickname", "");
-  const [router] = usePersistentState("selected-router", "");
+  const [routerNickname] = usePersistentState("router-nickname", "");
+  const [selectedRouter] = usePersistentState("selected-router", "");
 
   return (
     <>
@@ -12,12 +12,12 @@ const RouterStatus = () => {
         <div className={styles.statusContainer}>
           <span className={styles.title}>Router Status</span>
           <span className={styles.subTitle}>
-            Router: {nickname} ({router.slice(0, 6)}...{router.slice(-4)})
+            Router: {routerNickname} ({selectedRouter.slice(0, 6)}...{selectedRouter.slice(-4)})
           </span>
 
+          <span className={styles.subTitle}>Balance: 1000 aUSDC</span>
           <span className={styles.subTitle}>Active: true</span>
           <span className={styles.subTitle}>Destination: 0xabc...123</span>
-          <span className={styles.subTitle}>Balance: 1000 aUSDC</span>
 
           <details className={styles.collapsible}>
             <summary className={styles.title}>click for rules & router details</summary>
@@ -35,7 +35,6 @@ const RouterStatus = () => {
 
             <div className={styles.statusContainer}>
               <span className={styles.title}>Router Details</span>
-
               <span className={styles.subTitle}>Currency: aUSDC(0xabc...123)</span>
               <span className={styles.subTitle}>Automation Cost: 0.5% (auto-deducted)</span>
             </div>

@@ -112,7 +112,7 @@ const ManageRouters = () => {
       const routerFactory = new Contract(foundFactory, ROUTER_FACTORY_CONTRACT.abi, signer);
 
       const tx = await routerFactory.createRouter(routerNickname);
-      await tx.wait(); // 🔥 this is what you've been missing
+      await tx.wait();
 
       await _fetchUserRouters();
 
