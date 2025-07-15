@@ -1,13 +1,16 @@
 import styles from "./RouterStatus.module.css";
 import ManageRouterState from "../ManageRouterState/ManageRouterState";
+import { usePersistentState } from "../../store/LocalStorage.ts";
 
 const RouterStatus = () => {
+  const [nickname] = usePersistentState("router-nickname", "");
+
   return (
     <>
       <div className={styles.container}>
         <div className={styles.statusContainer}>
           <span className={styles.title}>Router Status</span>
-          <span className={styles.subTitle}>Nickname: Genesis</span>
+          <span className={styles.subTitle}>Nickname: {nickname}</span>
           <span className={styles.subTitle}>Active: true</span>
           <span className={styles.subTitle}>Destination: 0xabc...123</span>
           <span className={styles.subTitle}>Balance: 1000 aUSDC</span>

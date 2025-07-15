@@ -33,11 +33,16 @@ const ManageRouters = () => {
   useEffect(() => {
     const getUserRouters = async () => {
       const provider = getProvider();
+      const signer = await getSigner();
+      const userAddress = await signer.getAddress();
       const controller = new Contract(ROUTER_FACTORY_CONTROLLER_CONTRACT.address, ROUTER_FACTORY_CONTROLLER_CONTRACT.abi, provider);
       const activeFactories: FactoryDetails[] = await controller.getFactories();
 
       for (const factory of activeFactories) {
-        await _setLocalStorageState(factory.factoryAddress);
+        const routerFactory = new Contract(factory.factoryAddress, ROUTER_FACTORY_CONTRACT.abi, signer);
+        const routers: UserRouterDetails[] = await routerFactory.getAccountRouters(userAddress);
+
+        setActiveUserRouters(routers);
       }
     };
 
@@ -60,26 +65,27 @@ const ManageRouters = () => {
   };
 
   // ======================= Router Logic =======================
-  const _setLocalStorageState = async (factoryAddr: string): Promise<void> => {
-    if (!evmWalletExist()) return;
 
-    try {
-      const signer = await getSigner();
-      const userAddress = await signer.getAddress();
-      const routerFactory = new Contract(factoryAddr, ROUTER_FACTORY_CONTRACT.abi, signer);
+  const _fetchUserRouters = async () => {
+    const provider = getProvider();
+    const signer = await getSigner();
+    const userAddress = await signer.getAddress();
+    const controller = new Contract(ROUTER_FACTORY_CONTROLLER_CONTRACT.address, ROUTER_FACTORY_CONTROLLER_CONTRACT.abi, provider);
+    const activeFactories: FactoryDetails[] = await controller.getFactories();
 
+    for (const factory of activeFactories) {
+      const routerFactory = new Contract(factory.factoryAddress, ROUTER_FACTORY_CONTRACT.abi, signer);
       const routers: UserRouterDetails[] = await routerFactory.getAccountRouters(userAddress);
 
-      const lastRouter = routers[routers.length - 1];
+      let lastRouterIndex: number;
+      if (routers.length > 1) {
+        lastRouterIndex = routers.length - 1;
+      } else {
+        lastRouterIndex = 0;
+      }
 
-      setSelectedRouter(lastRouter.routerAddress);
-      setCurrencyAddress(lastRouter.tokenAddress);
-      setRouterNickname(lastRouter.routerNickname);
+      setSelectedRouter(routers[lastRouterIndex].routerAddress);
       setActiveUserRouters(routers);
-
-      console.log("New router deployed at:", lastRouter.routerAddress);
-    } catch (err) {
-      console.error("Failed to set local storage state:", err);
     }
   };
 
@@ -104,9 +110,14 @@ const ManageRouters = () => {
       if (!foundFactory) throw new Error("No factory address selected");
 
       const routerFactory = new Contract(foundFactory, ROUTER_FACTORY_CONTRACT.abi, signer);
-      await routerFactory.createRouter(routerNickname);
 
-      await _setLocalStorageState(foundFactory);
+      const tx = await routerFactory.createRouter(routerNickname);
+      await tx.wait(); // 🔥 this is what you've been missing
+
+      await _fetchUserRouters();
+
+      setCurrencyAddress("");
+      setRouterNickname("");
     } catch (error) {
       console.error("Failed to create router:", error);
     }
@@ -146,7 +157,6 @@ const ManageRouters = () => {
             </label>
           </div>
         </div>
-
         <label htmlFor="modalToggle2" className={styles.buttonSwitchRouter}>
           Switch Router
         </label>
@@ -158,6 +168,7 @@ const ManageRouters = () => {
       <div className={styles.modalOverlay2}>
         <div className={styles.modalContent2}>
           <h3>Choose Router</h3>
+
           <select value={selectedRouter} onChange={(e) => setSelectedRouter(e.target.value)} className={styles.selectFactory}>
             <option value="" disabled hidden>
               Select Router
@@ -170,10 +181,23 @@ const ManageRouters = () => {
           </select>
 
           <br />
+
           <label htmlFor="modalToggle2" className={styles.closeBtn}>
             Cancel
           </label>
-          <label htmlFor="modalToggle2" className={styles.buttonCreateRouter}>
+
+          <label
+            htmlFor="modalToggle2"
+            className={styles.buttonCreateRouter}
+            onClick={() => {
+              const matchedRouter = activeUserRouters.find((r) => r.routerAddress === selectedRouter);
+              if (matchedRouter) {
+                const nickname = matchedRouter.routerNickname || "";
+                setRouterNickname(nickname);
+                localStorage.setItem("router-nickname", nickname); // 🔥 force RouterStatus to reflect latest nickname
+              }
+            }}
+          >
             Choose Router
           </label>
         </div>
