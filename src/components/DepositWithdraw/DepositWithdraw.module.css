@@ -99,16 +99,24 @@
 
   border: 2.5px solid #1f3c26;
 }
+.buttonTestTokens:hover {
+  background-color: #61a163;
+  color: #1f3c26;
+
+  border: 2.5px solid #1f3c26;
+}
 
 /* Push effect on click */
 .button:active,
-.buttonDeposit:active {
+.buttonDeposit:active,
+.buttonTestTokens:active {
   transform: translateY(2px);
   box-shadow: 0 2px 0 #1f3c26;
   outline: none;
 }
 
 .button:focus,
-.buttonDeposit:focus {
+.buttonDeposit:focus,
+.buttonTestTokens:focus {
   outline: none;
 }
