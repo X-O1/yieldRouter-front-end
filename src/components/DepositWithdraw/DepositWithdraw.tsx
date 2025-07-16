@@ -1,7 +1,7 @@
 import styles from "./DepositWithdraw.module.css";
 import { useEffect, useState } from "react";
 
-import { Contract, MaxUint256 } from "ethers";
+import { Contract, MaxUint256, parseUnits } from "ethers";
 import { evmWalletExist, getProvider, getSigner } from "../../lib/Ethers/GetEthers.ts";
 import { usePersistentState } from "../../store/LocalStorage.ts";
 import { ROUTER_CONTRACT } from "../../lib/Ethers/abi/Router.ts";
@@ -55,12 +55,32 @@ const DepositWithdraw = () => {
     }
   };
 
+  const mintTokens = async () => {
+    const signer = await getSigner();
+
+    const tokenAddress = "0x5fbdb2315678afecb367f032d93f642f64180aa3";
+    const tokenAbi = ["function mint(address to, uint256 amount) external"];
+
+    const token = new Contract(tokenAddress, tokenAbi, signer);
+
+    const to = await signer.getAddress();
+    const amount = parseUnits("1000", 6); // 1000 tokens with 6 decimals
+
+    const tx = await token.mint(to, amount);
+    await tx.wait();
+
+    console.log("Minted!");
+  };
+
   return (
     <>
       <div className={styles.container}>
         <span className={styles.title}>Deposit/Withdraw</span>
         <div className={styles.buttonContainer}>
           <input className={styles.amount} type="text" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} />
+          <button className={styles.buttonTestTokens} onClick={mintTokens}>
+            Get Test Tokens
+          </button>
           <button className={styles.buttonDeposit} onClick={deposit}>
             Deposit
           </button>

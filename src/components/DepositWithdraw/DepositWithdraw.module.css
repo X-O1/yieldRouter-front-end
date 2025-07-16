@@ -23,7 +23,7 @@
   font-weight: 100;
   margin: 0;
   height: 35px;
-  width: 45%;
+  width: 35%;
   background-color: #d6d1b5;
   border: 2.5px solid #1f3c26;
   border-radius: 3px;
@@ -41,13 +41,29 @@
   outline: none;
 }
 
+.buttonTestTokens {
+  border-radius: 0;
+  background-color: #7c1d1d;
+
+  border: 2.5px solid #1f3c26;
+  border-radius: 3px;
+  color: #d6d1b5;
+  width: 20%;
+  font-size: 11px;
+  padding: 0;
+  height: 39px;
+  box-shadow: 0 1px 0 #1f3c26;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+}
+
 .buttonDeposit {
   border-radius: 0;
   background-color: #1f3c26;
   border: 2.5px solid #1f3c26;
   border-radius: 3px;
   color: #d6d1b5;
-  width: 25%;
+  width: 20%;
   font-size: 15px;
   padding: 0;
   height: 39px;
@@ -62,7 +78,7 @@
   border-radius: 3px;
 
   color: #1f3c26;
-  width: 25%;
+  width: 20%;
   font-size: 15px;
   padding: 0;
   height: 39px;
