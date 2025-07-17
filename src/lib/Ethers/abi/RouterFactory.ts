@@ -25,6 +25,11 @@ const ROUTER_FACTORY_CONTRACT = {
       name: "createRouter",
       inputs: [
         {
+          name: "_owner",
+          type: "address",
+          internalType: "address",
+        },
+        {
           name: "_routerNickname",
           type: "string",
           internalType: "string",
@@ -34,7 +39,7 @@ const ROUTER_FACTORY_CONTRACT = {
         {
           name: "",
           type: "address",
-          internalType: "address",
+          internalType: "contract Router",
         },
       ],
       stateMutability: "nonpayable",

@@ -8,32 +8,43 @@ import { ROUTER_CONTRACT } from "../../lib/Ethers/abi/Router.ts";
 import { ERC20_CONTRACT } from "../../lib/Ethers/abi/ERC20.ts";
 
 const DepositWithdraw = () => {
-  const [selectedRouter] = usePersistentState("selected-router", "");
-  const [tokenAddress] = usePersistentState("currency-address", "");
-  const [amount, setAmount] = useState("");
+  const [selectedRouter] = usePersistentState<string>("selected-router", "");
+  const [tokenAddress] = usePersistentState<string>("currency-address", "");
+  const [amount, setAmount] = useState<string>("");
+
+  const approveMaxAmount = async (): Promise<void> => {
+    if (!evmWalletExist()) return;
+    try {
+      console.log(selectedRouter);
+      console.log(tokenAddress);
+      const signer = await getSigner();
+      const token = new Contract(tokenAddress, ERC20_CONTRACT.abi, signer);
+
+      const tx = await token.approve(selectedRouter, MaxUint256);
+      console.log(`Approval tx sent: ${tx.hash}`);
+
+      const receipt = await tx.wait();
+      console.log(`Confirmed in block: ${receipt.blockNumber}`);
+    } catch (err) {
+      console.warn("Approval failed:", err);
+    }
+  };
 
   const deposit = async (): Promise<void> => {
     if (!evmWalletExist()) return;
     const signer = await getSigner();
-    const token = new Contract(tokenAddress, ERC20_CONTRACT, signer);
     const router = new Contract(selectedRouter, ROUTER_CONTRACT.abi, signer);
-    const numericAmount = parseFloat(amount);
-    if (isNaN(numericAmount)) return console.warn("Invalid number");
+    const token = new Contract(tokenAddress, ERC20_CONTRACT.abi, signer);
+
     try {
-      // approve amount to be transfered
-      const approveAmount = await token.approve(selectedRouter, MaxUint256);
-      console.log("Approval transaction sent:", approveAmount.hash);
-      const receipt = await approveAmount.wait();
-      console.log("Transaction confirmed in block:", receipt.blockNumber);
-    } catch (error) {
-      console.log("Approval failed", error);
-    }
-    try {
-      // deposit
-      const deposit = await router.deposit(tokenAddress, numericAmount);
-      console.log("Deposit transaction sent:", deposit.hash);
-      await deposit.wait();
-      console.log("Transaction confirmed in block:", deposit.blockNumber);
+      if (isNaN(parseFloat(amount))) return console.warn("Invalid number");
+      const decimals = await token.decimals();
+      const wadAmount = parseUnits(amount, decimals);
+
+      const tx = await router.deposit(wadAmount);
+      console.log("Deposit transaction sent:", tx.hash);
+      await tx.wait();
+      console.log("Transaction confirmed in block:", tx.blockNumber);
     } catch (error) {
       console.log("Deposit failed", error);
     }
@@ -43,10 +54,12 @@ const DepositWithdraw = () => {
     if (!evmWalletExist()) return;
     const signer = await getSigner();
     const router = new Contract(selectedRouter, ROUTER_CONTRACT.abi, signer);
-    const numericAmount = parseFloat(amount);
-    if (isNaN(numericAmount)) return console.warn("Invalid number");
+
     try {
-      const tx = await router.withdraw(numericAmount);
+      if (isNaN(parseFloat(amount))) return console.warn("Invalid number");
+      const wadAmount = parseUnits(amount, 18);
+
+      const tx = await router.withdraw(wadAmount);
       console.log("Withdraw transaction sent:", tx.hash);
       await tx.wait();
       console.log("Transaction confirmed in block:", tx.blockNumber);
@@ -55,32 +68,16 @@ const DepositWithdraw = () => {
     }
   };
 
-  const mintTokens = async () => {
-    const signer = await getSigner();
-
-    const tokenAddress = "0x5fbdb2315678afecb367f032d93f642f64180aa3";
-    const tokenAbi = ["function mint(address to, uint256 amount) external"];
-
-    const token = new Contract(tokenAddress, tokenAbi, signer);
-
-    const to = await signer.getAddress();
-    const amount = parseUnits("1000", 6); // 1000 tokens with 6 decimals
-
-    const tx = await token.mint(to, amount);
-    await tx.wait();
-
-    console.log("Minted!");
-  };
-
   return (
     <>
       <div className={styles.container}>
         <span className={styles.title}>Deposit/Withdraw</span>
         <div className={styles.buttonContainer}>
-          <input className={styles.amount} type="text" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} />
-          <button className={styles.buttonTestTokens} onClick={mintTokens}>
-            Get Test Tokens
+          <button className={styles.buttonTestTokens} onClick={approveMaxAmount}>
+            Grant Token Access
           </button>
+
+          <input className={styles.amount} type="text" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} />
           <button className={styles.buttonDeposit} onClick={deposit}>
             Deposit
           </button>

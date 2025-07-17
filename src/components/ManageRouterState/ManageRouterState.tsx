@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Contract } from "ethers";
+import { Contract, parseUnits } from "ethers";
 import styles from "./ManageRouterState.module.css";
 import { evmWalletExist, getProvider, getSigner } from "../../lib/Ethers/GetEthers.ts";
 import { ROUTER_FACTORY_CONTROLLER_CONTRACT } from "../../lib/Ethers/abi/RouterFactoryController.ts";
@@ -59,7 +59,6 @@ const ManageRouters = () => {
   const handleModalToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsModalOpen(e.target.checked);
     if (!e.target.checked) {
-      setCurrencyAddress("");
       setRouterNickname("");
     }
   };
@@ -85,6 +84,7 @@ const ManageRouters = () => {
       }
 
       setSelectedRouter(routers[lastRouterIndex].routerAddress);
+      setCurrencyAddress(routers[lastRouterIndex].tokenAddress);
       setActiveUserRouters(routers);
     }
   };
@@ -95,6 +95,8 @@ const ManageRouters = () => {
     try {
       const provider = getProvider();
       const signer = await getSigner();
+      const userAddress = await signer.getAddress();
+
       const controller = new Contract(ROUTER_FACTORY_CONTROLLER_CONTRACT.address, ROUTER_FACTORY_CONTROLLER_CONTRACT.abi, provider);
       const factories: FactoryDetails[] = await controller.getFactories();
 
@@ -111,16 +113,29 @@ const ManageRouters = () => {
 
       const routerFactory = new Contract(foundFactory, ROUTER_FACTORY_CONTRACT.abi, signer);
 
-      const tx = await routerFactory.createRouter(routerNickname);
+      const tx = await routerFactory.createRouter(userAddress, routerNickname);
       await tx.wait();
 
       await _fetchUserRouters();
 
-      setCurrencyAddress("");
       setRouterNickname("");
     } catch (error) {
       console.error("Failed to create router:", error);
     }
+  };
+
+  const mintTokens = async () => {
+    const signer = await getSigner();
+    const tokenAddress = "0x5fbdb2315678afecb367f032d93f642f64180aa3";
+    const tokenAbi = ["function mint(address to, uint256 amount) external"];
+    const token = new Contract(tokenAddress, tokenAbi, signer);
+    const to = await signer.getAddress();
+    const amount = parseUnits("1000", 6); // 1000 tokens with 6 decimals
+
+    const tx = await token.mint(to, amount);
+    await tx.wait();
+
+    console.log("Minted!");
   };
 
   // ======================= UI =======================
@@ -140,7 +155,7 @@ const ManageRouters = () => {
             <input type="text" className={styles.nicknameInput} placeholder="Enter router nickname" value={routerNickname} onChange={(e) => setRouterNickname(e.target.value)} />
 
             <h3>Choose Currency</h3>
-            <select className={styles.selectFactory} value={currencyAddress} onChange={handleCurrencyChange}>
+            <select className={styles.selectFactory} key={currencyAddress} value={currencyAddress} onChange={handleCurrencyChange}>
               <option value="" disabled>
                 Select Currency
               </option>
@@ -160,6 +175,9 @@ const ManageRouters = () => {
         <label htmlFor="modalToggle2" className={styles.buttonSwitchRouter}>
           Switch Router
         </label>
+        <button className={styles.buttonTestTokens} onClick={mintTokens}>
+          Get Test Tokens
+        </button>
       </div>
 
       {/* Switch Router Modal */}
@@ -195,6 +213,7 @@ const ManageRouters = () => {
                 const nickname = matchedRouter.routerNickname || "";
                 setRouterNickname(nickname);
                 setSelectedRouter(matchedRouter.routerAddress);
+                setCurrencyAddress(matchedRouter.tokenAddress);
               }
             }}
           >

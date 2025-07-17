@@ -25,11 +25,6 @@ const ROUTER_CONTRACT = {
       name: "deposit",
       inputs: [
         {
-          name: "_yieldBarringToken",
-          type: "address",
-          internalType: "address",
-        },
-        {
           name: "_amountInPrincipalValue",
           type: "uint256",
           internalType: "uint256",
@@ -218,7 +213,7 @@ const ROUTER_CONTRACT = {
           internalType: "address",
         },
         {
-          name: "_prinicalToken",
+          name: "_principalToken",
           type: "address",
           internalType: "address",
         },
@@ -506,7 +501,17 @@ const ROUTER_CONTRACT = {
     },
     {
       type: "error",
+      name: "CALLER_MUST_BE_DESTINATION",
+      inputs: [],
+    },
+    {
+      type: "error",
       name: "DEPOSIT_FAILED",
+      inputs: [],
+    },
+    {
+      type: "error",
+      name: "DESTINATION_ADDRESS_NOT_PERMMITTED",
       inputs: [],
     },
     {
@@ -526,7 +531,22 @@ const ROUTER_CONTRACT = {
     },
     {
       type: "error",
+      name: "NOT_AUTHORIZED",
+      inputs: [],
+    },
+    {
+      type: "error",
+      name: "NOT_ENOUGH_YIELD",
+      inputs: [],
+    },
+    {
+      type: "error",
       name: "NOT_FACTORY",
+      inputs: [],
+    },
+    {
+      type: "error",
+      name: "NOT_FACTORY_OWNER",
       inputs: [],
     },
     {
@@ -536,7 +556,27 @@ const ROUTER_CONTRACT = {
     },
     {
       type: "error",
+      name: "NOT_PERMITTED_AMOUNT",
+      inputs: [],
+    },
+    {
+      type: "error",
+      name: "NOT_ROUTER",
+      inputs: [],
+    },
+    {
+      type: "error",
+      name: "NO_ACTIVE_ROUTERS",
+      inputs: [],
+    },
+    {
+      type: "error",
       name: "NO_BALANCE_DEPOSIT_REQUIRED",
+      inputs: [],
+    },
+    {
+      type: "error",
+      name: "NO_FACTORIES",
       inputs: [],
     },
     {
@@ -556,7 +596,27 @@ const ROUTER_CONTRACT = {
     },
     {
       type: "error",
+      name: "ROUTER_LOCKED",
+      inputs: [],
+    },
+    {
+      type: "error",
+      name: "ROUTER_MUST_BE_ACTIVE_TO_LOCK",
+      inputs: [],
+    },
+    {
+      type: "error",
       name: "ROUTER_NOT_ACTIVE",
+      inputs: [],
+    },
+    {
+      type: "error",
+      name: "ROUTER_NOT_FOUND",
+      inputs: [],
+    },
+    {
+      type: "error",
+      name: "ROUTER_NOT_LOCKED",
       inputs: [],
     },
     {
