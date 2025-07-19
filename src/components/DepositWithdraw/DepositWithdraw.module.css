@@ -41,7 +41,7 @@
   outline: none;
 }
 
-.buttonTestTokens {
+.buttonGrantTokenAccess {
   border-radius: 0;
   background-color: #61a163;
   border: 2px solid #1f3c26;
@@ -99,7 +99,7 @@
 
   border: 2.5px solid #1f3c26;
 }
-.buttonTestTokens:hover {
+.buttonGrantTokenAccess:hover {
   background-color: #61a163;
   color: #1f3c26;
 
@@ -109,7 +109,7 @@
 /* Push effect on click */
 .button:active,
 .buttonDeposit:active,
-.buttonTestTokens:active {
+.buttonGrantTokenAccess:active {
   transform: translateY(2px);
   box-shadow: 0 2px 0 #1f3c26;
   outline: none;
@@ -117,6 +117,6 @@
 
 .button:focus,
 .buttonDeposit:focus,
-.buttonTestTokens:focus {
+.buttonGrantTokenAccess:focus {
   outline: none;
 }

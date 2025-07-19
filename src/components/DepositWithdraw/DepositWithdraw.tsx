@@ -74,7 +74,7 @@ const DepositWithdraw = () => {
       <div className={styles.container}>
         <span className={styles.title}>Deposit/Withdraw</span>
         <div className={styles.buttonContainer}>
-          <button className={styles.buttonTestTokens} onClick={approveMaxAmount}>
+          <button className={styles.buttonGrantTokenAccess} onClick={approveMaxAmount}>
             Grant Token Access
           </button>
 

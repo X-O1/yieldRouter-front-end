@@ -71,6 +71,39 @@
   transition: all 0.1s ease-in-out;
   cursor: pointer;
 }
+.buttonRouteYield {
+  border-radius: 0;
+  background-color: #61a163;
+  color: #1f3c26;
+  border: 1.25px solid #1f3c26;
+  border-radius: 3px;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 0;
+  margin: 15px auto 5px auto;
+  box-shadow: 0 1.5px 0 #1f3c26;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+}
+
+.buttonRouteYield:hover {
+  background-color: #61a163;
+  color: #1f3c26;
+
+  border: 1px solid #1f3c26;
+}
+
+/* Push effect on click */
+.buttonRouteYield:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #1f3c26;
+  outline: none;
+}
+
+.buttonRouteYield:focus {
+  outline: none;
+}
 
 .buttonActivate:hover {
   background-color: #61a163;
