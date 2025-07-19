@@ -25,7 +25,7 @@ const ROUTER_CONTRACT = {
       name: "deposit",
       inputs: [
         {
-          name: "_amountInPrincipalValue",
+          name: "_yieldTokenAmount",
           type: "uint256",
           internalType: "uint256",
         },
@@ -67,7 +67,7 @@ const ROUTER_CONTRACT = {
     },
     {
       type: "function",
-      name: "getOwnerPrincipalValue",
+      name: "getOwnerPrincipalBalance",
       inputs: [],
       outputs: [
         {
@@ -80,7 +80,7 @@ const ROUTER_CONTRACT = {
     },
     {
       type: "function",
-      name: "getOwnerPrincipalYield",
+      name: "getOwnerYield",
       inputs: [],
       outputs: [
         {
@@ -171,7 +171,7 @@ const ROUTER_CONTRACT = {
     },
     {
       type: "function",
-      name: "getYieldAllowanceInPrincipalValue",
+      name: "getYieldAllowance",
       inputs: [
         {
           name: "_address",
@@ -217,6 +217,16 @@ const ROUTER_CONTRACT = {
           type: "address",
           internalType: "address",
         },
+        {
+          name: "_yieldTokenDecimals",
+          type: "uint256",
+          internalType: "uint256",
+        },
+        {
+          name: "_principalTokenDecimals",
+          type: "uint256",
+          internalType: "uint256",
+        },
       ],
       outputs: [],
       stateMutability: "nonpayable",
@@ -255,7 +265,7 @@ const ROUTER_CONTRACT = {
           internalType: "bool",
         },
         {
-          name: "_principalYieldAllowance",
+          name: "_yieldAllowance",
           type: "uint256",
           internalType: "uint256",
         },
@@ -288,7 +298,7 @@ const ROUTER_CONTRACT = {
       ],
       outputs: [
         {
-          name: "principalBalance",
+          name: "yieldTokenBalance",
           type: "uint256",
           internalType: "uint256",
         },
@@ -298,7 +308,25 @@ const ROUTER_CONTRACT = {
           internalType: "uint256",
         },
         {
-          name: "principalYield",
+          name: "principalBalance",
+          type: "uint256",
+          internalType: "uint256",
+        },
+        {
+          name: "yield",
+          type: "uint256",
+          internalType: "uint256",
+        },
+      ],
+      stateMutability: "view",
+    },
+    {
+      type: "function",
+      name: "s_principalTokenDecimals",
+      inputs: [],
+      outputs: [
+        {
+          name: "",
           type: "uint256",
           internalType: "uint256",
         },
@@ -322,7 +350,20 @@ const ROUTER_CONTRACT = {
           internalType: "bool",
         },
         {
-          name: "principalYieldAllowance",
+          name: "yieldAllowance",
+          type: "uint256",
+          internalType: "uint256",
+        },
+      ],
+      stateMutability: "view",
+    },
+    {
+      type: "function",
+      name: "s_yieldTokenDecimals",
+      inputs: [],
+      outputs: [
+        {
+          name: "",
           type: "uint256",
           internalType: "uint256",
         },
@@ -353,7 +394,7 @@ const ROUTER_CONTRACT = {
       name: "withdraw",
       inputs: [
         {
-          name: "_amountInPrincipalValue",
+          name: "_yieldTokenAmount",
           type: "uint256",
           internalType: "uint256",
         },
@@ -501,22 +542,12 @@ const ROUTER_CONTRACT = {
     },
     {
       type: "error",
-      name: "CALLER_MUST_BE_DESTINATION",
-      inputs: [],
-    },
-    {
-      type: "error",
       name: "DEPOSIT_FAILED",
       inputs: [],
     },
     {
       type: "error",
-      name: "DESTINATION_ADDRESS_NOT_PERMMITTED",
-      inputs: [],
-    },
-    {
-      type: "error",
-      name: "INPUT_MUST_BE_IN_WAD_UNITS",
+      name: "FEE_TRANSFER_FAILED",
       inputs: [],
     },
     {
@@ -531,12 +562,7 @@ const ROUTER_CONTRACT = {
     },
     {
       type: "error",
-      name: "NOT_AUTHORIZED",
-      inputs: [],
-    },
-    {
-      type: "error",
-      name: "NOT_ENOUGH_YIELD",
+      name: "MUST_BE_GREATER_THAN_0",
       inputs: [],
     },
     {
@@ -546,27 +572,7 @@ const ROUTER_CONTRACT = {
     },
     {
       type: "error",
-      name: "NOT_FACTORY_OWNER",
-      inputs: [],
-    },
-    {
-      type: "error",
       name: "NOT_OWNER",
-      inputs: [],
-    },
-    {
-      type: "error",
-      name: "NOT_PERMITTED_AMOUNT",
-      inputs: [],
-    },
-    {
-      type: "error",
-      name: "NOT_ROUTER",
-      inputs: [],
-    },
-    {
-      type: "error",
-      name: "NO_ACTIVE_ROUTERS",
       inputs: [],
     },
     {
@@ -576,12 +582,17 @@ const ROUTER_CONTRACT = {
     },
     {
       type: "error",
-      name: "NO_FACTORIES",
+      name: "NO_YIELD",
       inputs: [],
     },
     {
       type: "error",
-      name: "NO_YIELD",
+      name: "OVERFLOW_UNDERFLOW",
+      inputs: [],
+    },
+    {
+      type: "error",
+      name: "POOL_WITHDRAW_FAILED",
       inputs: [],
     },
     {
@@ -596,27 +607,7 @@ const ROUTER_CONTRACT = {
     },
     {
       type: "error",
-      name: "ROUTER_LOCKED",
-      inputs: [],
-    },
-    {
-      type: "error",
-      name: "ROUTER_MUST_BE_ACTIVE_TO_LOCK",
-      inputs: [],
-    },
-    {
-      type: "error",
       name: "ROUTER_NOT_ACTIVE",
-      inputs: [],
-    },
-    {
-      type: "error",
-      name: "ROUTER_NOT_FOUND",
-      inputs: [],
-    },
-    {
-      type: "error",
-      name: "ROUTER_NOT_LOCKED",
       inputs: [],
     },
     {
@@ -626,12 +617,12 @@ const ROUTER_CONTRACT = {
     },
     {
       type: "error",
-      name: "TOKEN_NOT_PERMITTED",
+      name: "WITHDRAW_FAILED",
       inputs: [],
     },
     {
       type: "error",
-      name: "WITHDRAW_FAILED",
+      name: "YIELD_TRANSFER_FAILED",
       inputs: [],
     },
   ],

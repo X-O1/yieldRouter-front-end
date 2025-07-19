@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export function usePersistentState<T>(key: string, defaultValue: T): [T, (val: T) => void] {
+export function usePersistentState<T>(key: string, defaultValue: T): [T, React.Dispatch<React.SetStateAction<T>>] {
   const [state, setState] = useState<T>(() => {
     const stored = localStorage.getItem(key);
     return stored ? JSON.parse(stored) : defaultValue;
@@ -28,14 +28,14 @@ export function usePersistentState<T>(key: string, defaultValue: T): [T, (val: T
     };
   }, [key]);
 
-  const update = (val: T) => {
-    localStorage.setItem(key, JSON.stringify(val));
-    setState(val);
+  const update: React.Dispatch<React.SetStateAction<T>> = (val) => {
+    const nextValue = typeof val === "function" ? (val as (prev: T) => T)(state) : val;
+    localStorage.setItem(key, JSON.stringify(nextValue));
+    setState(nextValue);
 
-    // Trigger custom event to notify all hooks in the same tab
     window.dispatchEvent(
       new CustomEvent("localStorageUpdate", {
-        detail: { key, value: val },
+        detail: { key, value: nextValue },
       })
     );
   };

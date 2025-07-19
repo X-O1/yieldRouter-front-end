@@ -45,7 +45,6 @@ const ManageRouters = () => {
         setActiveUserRouters(routers);
       }
     };
-
     getUserRouters();
   }, []);
 

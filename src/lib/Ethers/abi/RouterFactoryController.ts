@@ -9,11 +9,6 @@ const ROUTER_FACTORY_CONTROLLER_CONTRACT = {
           type: "address",
           internalType: "address",
         },
-        {
-          name: "_startingRouterFeePercentage",
-          type: "uint256",
-          internalType: "uint256",
-        },
       ],
       stateMutability: "nonpayable",
     },
@@ -61,6 +56,11 @@ const ROUTER_FACTORY_CONTROLLER_CONTRACT = {
           name: "_principalToken",
           type: "address",
           internalType: "address",
+        },
+        {
+          name: "_startingRouterFeePercentage",
+          type: "uint256",
+          internalType: "uint256",
         },
       ],
       outputs: [
@@ -136,19 +136,6 @@ const ROUTER_FACTORY_CONTROLLER_CONTRACT = {
     },
     {
       type: "function",
-      name: "getRouterFeePercentage",
-      inputs: [],
-      outputs: [
-        {
-          name: "",
-          type: "uint256",
-          internalType: "uint256",
-        },
-      ],
-      stateMutability: "view",
-    },
-    {
-      type: "function",
       name: "s_feesCollected",
       inputs: [
         {
@@ -165,19 +152,6 @@ const ROUTER_FACTORY_CONTROLLER_CONTRACT = {
         },
       ],
       stateMutability: "view",
-    },
-    {
-      type: "function",
-      name: "setRouterFeePercentage",
-      inputs: [
-        {
-          name: "_routerFeePercentage",
-          type: "uint256",
-          internalType: "uint256",
-        },
-      ],
-      outputs: [],
-      stateMutability: "nonpayable",
     },
     {
       type: "function",
@@ -275,19 +249,6 @@ const ROUTER_FACTORY_CONTROLLER_CONTRACT = {
     },
     {
       type: "event",
-      name: "Router_Fee_Percentage_Updated",
-      inputs: [
-        {
-          name: "newFeePercentage",
-          type: "uint256",
-          indexed: false,
-          internalType: "uint256",
-        },
-      ],
-      anonymous: false,
-    },
-    {
-      type: "event",
       name: "Router_Reverted",
       inputs: [
         {
@@ -315,11 +276,6 @@ const ROUTER_FACTORY_CONTROLLER_CONTRACT = {
     {
       type: "error",
       name: "FailedDeployment",
-      inputs: [],
-    },
-    {
-      type: "error",
-      name: "INPUT_MUST_BE_IN_WAD_UNITS",
       inputs: [],
     },
     {

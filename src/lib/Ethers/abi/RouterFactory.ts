@@ -160,6 +160,19 @@ const ROUTER_FACTORY_CONTRACT = {
     },
     {
       type: "function",
+      name: "getRouterFeePercentage",
+      inputs: [],
+      outputs: [
+        {
+          name: "",
+          type: "uint256",
+          internalType: "uint256",
+        },
+      ],
+      stateMutability: "view",
+    },
+    {
+      type: "function",
       name: "getYieldBearingToken",
       inputs: [],
       outputs: [
@@ -194,6 +207,11 @@ const ROUTER_FACTORY_CONTRACT = {
           name: "_principalToken",
           type: "address",
           internalType: "address",
+        },
+        {
+          name: "_startingRouterFeePercentage",
+          type: "uint256",
+          internalType: "uint256",
         },
       ],
       outputs: [],
@@ -286,6 +304,19 @@ const ROUTER_FACTORY_CONTRACT = {
     },
     {
       type: "function",
+      name: "s_principalTokenDecimals",
+      inputs: [],
+      outputs: [
+        {
+          name: "",
+          type: "uint256",
+          internalType: "uint256",
+        },
+      ],
+      stateMutability: "view",
+    },
+    {
+      type: "function",
       name: "s_routers",
       inputs: [
         {
@@ -299,6 +330,19 @@ const ROUTER_FACTORY_CONTRACT = {
           name: "",
           type: "address",
           internalType: "address",
+        },
+      ],
+      stateMutability: "view",
+    },
+    {
+      type: "function",
+      name: "s_yieldTokenDecimals",
+      inputs: [],
+      outputs: [
+        {
+          name: "",
+          type: "uint256",
+          internalType: "uint256",
         },
       ],
       stateMutability: "view",
@@ -320,6 +364,19 @@ const ROUTER_FACTORY_CONTRACT = {
           internalType: "address",
         },
       ],
+      stateMutability: "nonpayable",
+    },
+    {
+      type: "function",
+      name: "setRouterFeePercentage",
+      inputs: [
+        {
+          name: "_routerFeePercentage",
+          type: "uint256",
+          internalType: "uint256",
+        },
+      ],
+      outputs: [],
       stateMutability: "nonpayable",
     },
     {
@@ -413,6 +470,19 @@ const ROUTER_FACTORY_CONTRACT = {
           type: "address",
           indexed: true,
           internalType: "address",
+        },
+      ],
+      anonymous: false,
+    },
+    {
+      type: "event",
+      name: "Router_Fee_Percentage_Updated",
+      inputs: [
+        {
+          name: "newFeePercentage",
+          type: "uint256",
+          indexed: false,
+          internalType: "uint256",
         },
       ],
       anonymous: false,

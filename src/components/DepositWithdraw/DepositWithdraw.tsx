@@ -1,8 +1,7 @@
 import styles from "./DepositWithdraw.module.css";
-import { useEffect, useState } from "react";
-
+import { useState } from "react";
 import { Contract, MaxUint256, parseUnits } from "ethers";
-import { evmWalletExist, getProvider, getSigner } from "../../lib/Ethers/GetEthers.ts";
+import { evmWalletExist, getSigner } from "../../lib/Ethers/GetEthers.ts";
 import { usePersistentState } from "../../store/LocalStorage.ts";
 import { ROUTER_CONTRACT } from "../../lib/Ethers/abi/Router.ts";
 import { ERC20_CONTRACT } from "../../lib/Ethers/abi/ERC20.ts";
@@ -39,9 +38,9 @@ const DepositWithdraw = () => {
     try {
       if (isNaN(parseFloat(amount))) return console.warn("Invalid number");
       const decimals = await token.decimals();
-      const wadAmount = parseUnits(amount, decimals);
+      const amt = parseUnits(amount, decimals);
 
-      const tx = await router.deposit(wadAmount);
+      const tx = await router.deposit(amt);
       console.log("Deposit transaction sent:", tx.hash);
       await tx.wait();
       console.log("Transaction confirmed in block:", tx.blockNumber);
@@ -54,12 +53,14 @@ const DepositWithdraw = () => {
     if (!evmWalletExist()) return;
     const signer = await getSigner();
     const router = new Contract(selectedRouter, ROUTER_CONTRACT.abi, signer);
+    const token = new Contract(tokenAddress, ERC20_CONTRACT.abi, signer);
 
     try {
       if (isNaN(parseFloat(amount))) return console.warn("Invalid number");
-      const wadAmount = parseUnits(amount, 18);
+      const decimals = await token.decimals();
+      const amt = parseUnits(amount, decimals);
 
-      const tx = await router.withdraw(wadAmount);
+      const tx = await router.withdraw(amt);
       console.log("Withdraw transaction sent:", tx.hash);
       await tx.wait();
       console.log("Transaction confirmed in block:", tx.blockNumber);
