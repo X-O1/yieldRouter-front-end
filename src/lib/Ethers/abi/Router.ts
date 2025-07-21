@@ -93,32 +93,6 @@ const ROUTER_CONTRACT = {
     },
     {
       type: "function",
-      name: "getRouterBalance",
-      inputs: [],
-      outputs: [
-        {
-          name: "",
-          type: "uint256",
-          internalType: "uint256",
-        },
-      ],
-      stateMutability: "view",
-    },
-    {
-      type: "function",
-      name: "getRouterBalancePrincipalValue",
-      inputs: [],
-      outputs: [
-        {
-          name: "",
-          type: "uint256",
-          internalType: "uint256",
-        },
-      ],
-      stateMutability: "view",
-    },
-    {
-      type: "function",
       name: "getRouterCurrentDestination",
       inputs: [],
       outputs: [
@@ -126,19 +100,6 @@ const ROUTER_CONTRACT = {
           name: "",
           type: "address",
           internalType: "address",
-        },
-      ],
-      stateMutability: "view",
-    },
-    {
-      type: "function",
-      name: "getRouterIsActive",
-      inputs: [],
-      outputs: [
-        {
-          name: "",
-          type: "bool",
-          internalType: "bool",
         },
       ],
       stateMutability: "view",
@@ -230,25 +191,6 @@ const ROUTER_CONTRACT = {
       ],
       outputs: [],
       stateMutability: "nonpayable",
-    },
-    {
-      type: "function",
-      name: "isAddressGrantedRouterAccess",
-      inputs: [
-        {
-          name: "_address",
-          type: "address",
-          internalType: "address",
-        },
-      ],
-      outputs: [
-        {
-          name: "",
-          type: "bool",
-          internalType: "bool",
-        },
-      ],
-      stateMutability: "view",
     },
     {
       type: "function",
@@ -435,19 +377,6 @@ const ROUTER_CONTRACT = {
     },
     {
       type: "event",
-      name: "Router_Activated",
-      inputs: [
-        {
-          name: "router",
-          type: "address",
-          indexed: true,
-          internalType: "address",
-        },
-      ],
-      anonymous: false,
-    },
-    {
-      type: "event",
       name: "Router_Status_Changed",
       inputs: [
         {
@@ -563,11 +492,6 @@ const ROUTER_CONTRACT = {
     {
       type: "error",
       name: "MUST_BE_GREATER_THAN_0",
-      inputs: [],
-    },
-    {
-      type: "error",
-      name: "NOT_FACTORY",
       inputs: [],
     },
     {

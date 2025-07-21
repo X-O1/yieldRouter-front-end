@@ -19,6 +19,19 @@ const MOCK_POOL_CONTRACT = {
     },
     {
       type: "function",
+      name: "getIndex",
+      inputs: [],
+      outputs: [
+        {
+          name: "",
+          type: "uint256",
+          internalType: "uint256",
+        },
+      ],
+      stateMutability: "view",
+    },
+    {
+      type: "function",
       name: "getPool",
       inputs: [],
       outputs: [
@@ -269,7 +282,7 @@ const MOCK_POOL_CONTRACT = {
     },
     {
       type: "error",
-      name: "MUST_BE_GREATER_THAN_0",
+      name: "POOL_WITHDRAW_FAILED",
       inputs: [],
     },
   ],

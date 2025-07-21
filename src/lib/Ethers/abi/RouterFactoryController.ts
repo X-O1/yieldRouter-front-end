@@ -155,13 +155,6 @@ const ROUTER_FACTORY_CONTROLLER_CONTRACT = {
     },
     {
       type: "function",
-      name: "triggerYieldRouting",
-      inputs: [],
-      outputs: [],
-      stateMutability: "nonpayable",
-    },
-    {
-      type: "function",
       name: "withdrawFees",
       inputs: [
         {
@@ -312,11 +305,6 @@ const ROUTER_FACTORY_CONTROLLER_CONTRACT = {
     {
       type: "error",
       name: "NOT_ROUTER",
-      inputs: [],
-    },
-    {
-      type: "error",
-      name: "NO_FACTORIES",
       inputs: [],
     },
     {
