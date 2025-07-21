@@ -64,7 +64,7 @@ const RouterControl = () => {
     // const router = new Contract(selectedRouter, ROUTER_CONTRACT.abi, signer);
 
     try {
-      const tx = await routerFactory.activateActiveRouters({ gasLimit: 1_000_000 });
+      const tx = await routerFactory.activateActiveRouters({ gasLimit: 2_000_000 });
       console.log("Routing Yield transaction sent:", tx.hash);
 
       await tx.wait();
