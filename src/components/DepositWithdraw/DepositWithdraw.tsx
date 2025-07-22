@@ -1,7 +1,7 @@
 import styles from "./DepositWithdraw.module.css";
 import { useState } from "react";
-import { Contract, MaxUint256, parseUnits } from "ethers";
-import { evmWalletExist, getSigner } from "../../lib/Ethers/GetEthers.ts";
+import { Contract, MaxUint256, parseUnits, formatUnits } from "ethers";
+import { evmWalletExist, getSigner, getProvider } from "../../lib/Ethers/GetEthers.ts";
 import { usePersistentState } from "../../store/LocalStorage.ts";
 import { ROUTER_CONTRACT } from "../../lib/Ethers/abi/Router.ts";
 import { ERC20_CONTRACT } from "../../lib/Ethers/abi/ERC20.ts";
@@ -10,6 +10,7 @@ const DepositWithdraw = () => {
   const [selectedRouter] = usePersistentState<string>("selected-router", "");
   const [tokenAddress] = usePersistentState<string>("currency-address", "");
   const [amount, setAmount] = useState<string>("");
+  const [, /*tokenBalance */ setTokenBalance] = usePersistentState<number>("token-balance", 0);
 
   const approveMaxAmount = async (): Promise<void> => {
     if (!evmWalletExist()) return;
@@ -44,6 +45,8 @@ const DepositWithdraw = () => {
       console.log("Deposit transaction sent:", tx.hash);
       await tx.wait();
       console.log("Transaction confirmed in block:", tx.blockNumber);
+
+      await getBalance();
     } catch (error) {
       console.log("Deposit failed", error);
     }
@@ -64,8 +67,26 @@ const DepositWithdraw = () => {
       console.log("Withdraw transaction sent:", tx.hash);
       await tx.wait();
       console.log("Transaction confirmed in block:", tx.blockNumber);
+      await getBalance();
     } catch (error) {
       console.log("Withdraw failed", error);
+    }
+  };
+
+  const getBalance = async (): Promise<void> => {
+    if (!evmWalletExist) return;
+    const provider = getProvider();
+    const token = new Contract(tokenAddress, ERC20_CONTRACT.abi, provider);
+    try {
+      const decimals = await token.decimals();
+      const balance = await token.balanceOf(selectedRouter);
+      const formatted = parseFloat(formatUnits(balance, decimals));
+      const truncated = Math.round(formatted * 10_000) / 10_000;
+
+      setTokenBalance(truncated);
+      console.log("Token Balance:", truncated);
+    } catch (error) {
+      console.log("Getting Token Balance Failed", error);
     }
   };
 

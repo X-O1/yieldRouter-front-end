@@ -6,7 +6,6 @@ import { usePersistentState } from "../../store/LocalStorage.ts";
 import { ROUTER_CONTRACT } from "../../lib/Ethers/abi/Router.ts";
 import { MOCK_POOL_CONTRACT } from "../../lib/Ethers/abi/MockPool.ts";
 import { ROUTER_FACTORY_CONTRACT } from "../../lib/Ethers/abi/RouterFactory.ts";
-
 import { ERC20_CONTRACT } from "../../lib/Ethers/abi/ERC20.ts";
 
 const RouterControl = () => {
@@ -64,7 +63,7 @@ const RouterControl = () => {
     // const router = new Contract(selectedRouter, ROUTER_CONTRACT.abi, signer);
 
     try {
-      const tx = await routerFactory.activateActiveRouters({ gasLimit: 2_000_000 });
+      const tx = await routerFactory.activateActiveRouters({ gasLimit: 1_000_000 });
       console.log("Routing Yield transaction sent:", tx.hash);
 
       await tx.wait();

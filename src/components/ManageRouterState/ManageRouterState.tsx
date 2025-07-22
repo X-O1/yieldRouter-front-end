@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Contract, parseUnits } from "ethers";
+import { Contract } from "ethers";
 import styles from "./ManageRouterState.module.css";
 import { evmWalletExist, getProvider, getSigner } from "../../lib/Ethers/GetEthers.ts";
 import { ROUTER_FACTORY_CONTROLLER_CONTRACT } from "../../lib/Ethers/abi/RouterFactoryController.ts";
@@ -123,19 +123,19 @@ const ManageRouters = () => {
     }
   };
 
-  const mintTokens = async () => {
-    const signer = await getSigner();
-    const tokenAddress = "0x5fbdb2315678afecb367f032d93f642f64180aa3";
-    const tokenAbi = ["function mint(address to, uint256 amount) external"];
-    const token = new Contract(tokenAddress, tokenAbi, signer);
-    const to = await signer.getAddress();
-    const amount = parseUnits("1000", 6); // 1000 tokens with 6 decimals
+  // const mintTokens = async () => {
+  //   const signer = await getSigner();
+  //   const tokenAddress = "0x5fbdb2315678afecb367f032d93f642f64180aa3";
+  //   const tokenAbi = ["function mint(address to, uint256 amount) external"];
+  //   const token = new Contract(tokenAddress, tokenAbi, signer);
+  //   const to = await signer.getAddress();
+  //   const amount = parseUnits("1000", 6); // 1000 tokens with 6 decimals
 
-    const tx = await token.mint(to, amount);
-    await tx.wait();
+  //   const tx = await token.mint(to, amount);
+  //   await tx.wait();
 
-    console.log("Minted!");
-  };
+  //   console.log("Minted!");
+  // };
 
   // ======================= UI =======================
   return (
@@ -174,9 +174,9 @@ const ManageRouters = () => {
         <label htmlFor="modalToggle2" className={styles.buttonSwitchRouter}>
           Switch Router
         </label>
-        <button className={styles.buttonTestTokens} onClick={mintTokens}>
+        {/* <button className={styles.buttonTestTokens} onClick={mintTokens}>
           Get Test Tokens
-        </button>
+        </button> */}
       </div>
 
       {/* Switch Router Modal */}
