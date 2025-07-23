@@ -54,6 +54,19 @@ const ROUTER_CONTRACT = {
     },
     {
       type: "function",
+      name: "getAddressBook",
+      inputs: [],
+      outputs: [
+        {
+          name: "",
+          type: "address[]",
+          internalType: "address[]",
+        },
+      ],
+      stateMutability: "view",
+    },
+    {
+      type: "function",
       name: "getOwnerIndexAdjustedBalance",
       inputs: [],
       outputs: [
@@ -194,7 +207,7 @@ const ROUTER_CONTRACT = {
     },
     {
       type: "function",
-      name: "manageRouterAccess",
+      name: "manageRouterAllowance",
       inputs: [
         {
           name: "_account",
@@ -202,12 +215,7 @@ const ROUTER_CONTRACT = {
           internalType: "address",
         },
         {
-          name: "_grantedYieldAccess",
-          type: "bool",
-          internalType: "bool",
-        },
-        {
-          name: "_yieldAllowance",
+          name: "_allowance",
           type: "uint256",
           internalType: "uint256",
         },
@@ -227,6 +235,25 @@ const ROUTER_CONTRACT = {
         },
       ],
       stateMutability: "nonpayable",
+    },
+    {
+      type: "function",
+      name: "s_addressBook",
+      inputs: [
+        {
+          name: "",
+          type: "uint256",
+          internalType: "uint256",
+        },
+      ],
+      outputs: [
+        {
+          name: "",
+          type: "address",
+          internalType: "address",
+        },
+      ],
+      stateMutability: "view",
     },
     {
       type: "function",
@@ -277,22 +304,17 @@ const ROUTER_CONTRACT = {
     },
     {
       type: "function",
-      name: "s_routerAccessRecords",
+      name: "s_routerAllowances",
       inputs: [
         {
-          name: "addressGrantedAccess",
+          name: "account",
           type: "address",
           internalType: "address",
         },
       ],
       outputs: [
         {
-          name: "grantedYieldAccess",
-          type: "bool",
-          internalType: "bool",
-        },
-        {
-          name: "yieldAllowance",
+          name: "allowance",
           type: "uint256",
           internalType: "uint256",
         },
@@ -446,17 +468,7 @@ const ROUTER_CONTRACT = {
     },
     {
       type: "error",
-      name: "ACCESS_ALREADY_GRANTED",
-      inputs: [],
-    },
-    {
-      type: "error",
-      name: "ACCESS_ALREADY_NOT_GRANTED",
-      inputs: [],
-    },
-    {
-      type: "error",
-      name: "ADDRESS_NOT_GRANTED_YIELD_ACCESS",
+      name: "ADDRESS_HAS_NO_ALLOWANCE",
       inputs: [],
     },
     {

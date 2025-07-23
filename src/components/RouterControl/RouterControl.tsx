@@ -1,7 +1,8 @@
 import styles from "./RouterControl.module.css";
-import { Contract, parseUnits } from "ethers";
+import { Contract, parseUnits, formatUnits } from "ethers";
+import { useState, useEffect } from "react";
 
-import { evmWalletExist, getSigner } from "../../lib/Ethers/GetEthers.ts";
+import { evmWalletExist, getSigner, getProvider } from "../../lib/Ethers/GetEthers.ts";
 import { usePersistentState } from "../../store/LocalStorage.ts";
 import { ROUTER_CONTRACT } from "../../lib/Ethers/abi/Router.ts";
 import { MOCK_POOL_CONTRACT } from "../../lib/Ethers/abi/MockPool.ts";
@@ -9,15 +10,14 @@ import { ROUTER_FACTORY_CONTRACT } from "../../lib/Ethers/abi/RouterFactory.ts";
 import { ERC20_CONTRACT } from "../../lib/Ethers/abi/ERC20.ts";
 
 const RouterControl = () => {
-  type AccessControl = {
-    address: string;
-    yieldAllowance: string;
-  };
   const [selectedRouter] = usePersistentState<string>("selected-router", "");
-  const [addressBook /*setAddressBook*/] = usePersistentState<AccessControl[]>("address-book", []);
+  const [addressBook] = usePersistentState<string[]>("address-book", []);
+
   const [destinationAddress, setDestinationAddress] = usePersistentState("destination-address", "");
   const [tokenAddress] = usePersistentState<string>("currency-address", "");
   const [selectedFactory /*setSelectedFactory*/] = usePersistentState("selected-factory", "");
+  const [allowance, setAllowance] = usePersistentState<number>("allowance", 0);
+  const [routerStatus, setRouterStatus] = usePersistentState<string>("router-status", "");
 
   const activate = async (): Promise<void> => {
     if (!evmWalletExist()) return;
@@ -26,12 +26,15 @@ const RouterControl = () => {
     try {
       const tx = await router.activateRouter(destinationAddress);
       console.log("Activate router transaction sent:", tx.hash);
-
       await tx.wait();
       console.log("Transaction confirmed in block:", tx.blockNumber);
 
-      const tx2: string = await router.getRouterStatus();
-      console.log("Router Is Active:", tx2);
+      const status: string = await router.getRouterStatus();
+      const satusString = status.toString();
+      console.log("Router Is Active:", satusString);
+
+      setRouterStatus(satusString);
+      await getAndSetAllowance();
     } catch (error) {
       console.log("Activating Router failed", error);
     }
@@ -48,8 +51,11 @@ const RouterControl = () => {
       await tx.wait();
       console.log("Transaction confirmed in block:", tx.blockNumber);
 
-      const tx2: string = await router.getRouterStatus();
-      console.log("Router Is Active:", tx2);
+      const status: string = await router.getRouterStatus();
+      const satusString = status.toString();
+      console.log("Router Is Active:", satusString);
+
+      setRouterStatus(satusString);
     } catch (error) {
       console.log("Deactivating Router failed", error);
     }
@@ -110,24 +116,53 @@ const RouterControl = () => {
     }
   };
 
+  const getAndSetAllowance = async (): Promise<void> => {
+    if (!evmWalletExist()) return;
+    const signer = await getSigner();
+    const provider = getProvider();
+    const router = new Contract(selectedRouter, ROUTER_CONTRACT.abi, signer);
+    const token = new Contract(tokenAddress, ERC20_CONTRACT.abi, provider);
+    try {
+      const decimals = await token.decimals();
+      const allowance: number = await router.getYieldAllowance(destinationAddress);
+      const formatted = parseFloat(formatUnits(allowance, decimals));
+      const truncated = Math.round(formatted * 10_000) / 10_000;
+      setAllowance(truncated);
+
+      console.log("Allowance", truncated);
+    } catch (error) {}
+  };
+
   return (
     <>
       <div className={styles.container}>
         <span className={styles.title}>Router Control</span>
 
-        <select value={destinationAddress} onChange={(e) => setDestinationAddress(e.target.value)} className={styles.selectDestination}>
+        <select
+          value={destinationAddress}
+          onChange={(e) => {
+            setDestinationAddress(e.target.value);
+          }}
+          className={styles.selectDestination}
+        >
           <option value="" disabled hidden>
             Select Destination
           </option>
+
           {addressBook.map((entry) => (
-            <option key={entry.address} value={entry.address}>
-              {entry.yieldAllowance ? `Address: (${entry.address.slice(0, 6)}...${entry.address.slice(-4)}) Allowance: ${entry.yieldAllowance} ` : entry.address}
+            <option key={entry} value={entry}>
+              {entry ? `Address: (${entry.slice(0, 6)}...${entry.slice(-4)})` : entry}
             </option>
           ))}
         </select>
 
         <div className={styles.buttonContainer}>
-          <button className={styles.buttonActivate} onClick={activate}>
+          <button
+            className={styles.buttonActivate}
+            onClick={async () => {
+              await getAndSetAllowance(), activate();
+            }}
+          >
             Activate Router
           </button>
           <button className={styles.buttonDeactivate} onClick={deactivate}>

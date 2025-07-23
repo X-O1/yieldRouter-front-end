@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { Contract } from "ethers";
+import { Contract, formatUnits } from "ethers";
 import styles from "./ManageRouterState.module.css";
 import { evmWalletExist, getProvider, getSigner } from "../../lib/Ethers/GetEthers.ts";
 import { ROUTER_FACTORY_CONTROLLER_CONTRACT } from "../../lib/Ethers/abi/RouterFactoryController.ts";
 import { ROUTER_FACTORY_CONTRACT } from "../../lib/Ethers/abi/RouterFactory.ts";
 import { usePersistentState } from "../../store/LocalStorage.ts";
+import { ERC20_CONTRACT } from "../../lib/Ethers/abi/ERC20.ts";
 
 // ======================= Types =======================
 type FactoryDetails = {
@@ -27,6 +28,8 @@ const ManageRouters = () => {
   const [currencyAddress, setCurrencyAddress] = usePersistentState("currency-address", "");
   const [routerNickname, setRouterNickname] = usePersistentState("router-nickname", "");
   const [activeUserRouters, setActiveUserRouters] = usePersistentState<UserRouterDetails[]>("active-user-routers", []);
+  const [tokenAddress] = usePersistentState<string>("currency-address", "");
+  const [, /*tokenBalance */ setTokenBalance] = usePersistentState<number>("token-balance", 0);
   const [, /*isModalOpen*/ setIsModalOpen] = useState(false);
 
   // ======================= Effects =======================
@@ -117,9 +120,26 @@ const ManageRouters = () => {
 
       await _fetchUserRouters();
 
-      setRouterNickname("");
+      setRouterNickname(routerNickname);
     } catch (error) {
       console.error("Failed to create router:", error);
+    }
+  };
+
+  const getBalance = async (): Promise<void> => {
+    if (!evmWalletExist) return;
+    const provider = getProvider();
+    const token = new Contract(tokenAddress, ERC20_CONTRACT.abi, provider);
+    try {
+      const decimals = await token.decimals();
+      const balance = await token.balanceOf(selectedRouter);
+      const formatted = parseFloat(formatUnits(balance, decimals));
+      const truncated = Math.round(formatted * 10_000) / 10_000;
+
+      setTokenBalance(truncated);
+      console.log("Token Balance:", truncated);
+    } catch (error) {
+      console.log("Getting Token Balance Failed", error);
     }
   };
 
@@ -206,13 +226,14 @@ const ManageRouters = () => {
           <label
             htmlFor="modalToggle2"
             className={styles.buttonCreateRouter}
-            onClick={() => {
+            onClick={async () => {
               const matchedRouter = activeUserRouters.find((r) => r.routerAddress === selectedRouter);
               if (matchedRouter) {
                 const nickname = matchedRouter.routerNickname || "";
                 setRouterNickname(nickname);
                 setSelectedRouter(matchedRouter.routerAddress);
                 setCurrencyAddress(matchedRouter.tokenAddress);
+                await getBalance();
               }
             }}
           >
