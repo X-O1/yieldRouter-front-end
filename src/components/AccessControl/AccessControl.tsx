@@ -14,22 +14,6 @@ const AccessControl = () => {
   const [addressAllowance, setAddressAllowance] = useState<string>("");
   const [tokenAddress] = usePersistentState<string>("currency-address", "");
 
-  // const addAddressAndAllowanceToAddressBook = async (): Promise<void> => {
-  //   try {
-  //     setAddressBook((prev) => [
-  //       ...prev,
-  //       {
-  //         address: addressGrantedAccess,
-  //         yieldAllowance: addressAllowance,
-  //       },
-  //     ]);
-  //     setAddressGrantedAccess("");
-  //     setAddressAllowance("");
-  //   } catch (error) {
-  //     console.log("Adding address to address book failed", error);
-  //   }
-  // };
-
   const setAllowance = async (): Promise<void> => {
     if (!evmWalletExist()) return;
     const signer = await getSigner();

@@ -1,7 +1,5 @@
 import styles from "./RouterControl.module.css";
 import { Contract, parseUnits, formatUnits } from "ethers";
-import { useState, useEffect } from "react";
-
 import { evmWalletExist, getSigner, getProvider } from "../../lib/Ethers/GetEthers.ts";
 import { usePersistentState } from "../../store/LocalStorage.ts";
 import { ROUTER_CONTRACT } from "../../lib/Ethers/abi/Router.ts";
@@ -16,8 +14,8 @@ const RouterControl = () => {
   const [destinationAddress, setDestinationAddress] = usePersistentState("destination-address", "");
   const [tokenAddress] = usePersistentState<string>("currency-address", "");
   const [selectedFactory /*setSelectedFactory*/] = usePersistentState("selected-factory", "");
-  const [allowance, setAllowance] = usePersistentState<number>("allowance", 0);
-  const [routerStatus, setRouterStatus] = usePersistentState<string>("router-status", "");
+  const [, /*allowance*/ setAllowance] = usePersistentState<number>("allowance", 0);
+  const [, /*routerStatus*/ setRouterStatus] = usePersistentState<string>("router-status", "");
 
   const activate = async (): Promise<void> => {
     if (!evmWalletExist()) return;
@@ -74,9 +72,6 @@ const RouterControl = () => {
 
       await tx.wait();
       console.log("Transaction confirmed in block:", tx.blockNumber);
-
-      // const tx3: string = await router.getOwnerYield();
-      // console.log("Owner Yield:", tx3);
     } catch (error) {
       console.log("Routing Yield failed", error);
     }
